@@ -6,8 +6,9 @@ documentation, demo usability, or test coverage.  At this time the projects ARE
 A WORK IN PROGRESS and will be released in the main FreeRTOS directories of the
 download following full review and completion of the documentation.
 
-Please note, the FreeRTOS IoT libraries have been moved to a different location.
-They can be found at https://github.com/freertos/freertos/tree/lts-development.
+Please note, the FreeRTOS IoT libraries (MQTT, HTTPS, AWS IoT Device Shadow, 
+and AWS IoT Jobs have been moved to a different location.  They can be found 
+at https://github.com/freertos/freertos/tree/lts-development.
 
 *** INTRODUCTION ***
 
