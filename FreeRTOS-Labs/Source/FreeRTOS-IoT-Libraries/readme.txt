@@ -1,7 +1,6 @@
 *** INTRODUCTION ***
 
-This distribution currently contains demos from the FreeRTOS task pool library,
-MQTT library, HTTPS Client library, Shadow library, and Jobs library.
+This distribution currently contain a demo for a lightweight MQTT API.  
 
 The pre-configured projects use the FreeRTOS kernel Windows port (often
 called the Windows simulator) to enable their evaluation using the free Visual
@@ -14,26 +13,9 @@ documentation.
 
 *** INSTRUCTIONS ***
 
-Instructions for configuring and using the FreeRTOS IoT libraries are in the
-following links:
+Instructions for configuring this demo can be found at:
 
-  + https://www.FreeRTOS.org/task-pool/
-  + https://www.FreeRTOS.org/mqtt/
-  + https://www.freertos.org/https/
-  + https://www.FreeRTOS.org/shadow/
-  + https://www.FreeRTOS.org/jobs/
-
-
-*** LOCATING THE EXAMPLE PROJECTS ***
-
-The Visual Studio projects for each of the FreeRTOS IoT library examples are
-located in sub-directories of the following top-level directories:
-
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/utilities
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/mqtt
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/https
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/shadow
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/jobs
+  + https://www.FreeRTOS.org/mqtt/preconfiguredexamplesLW.html
 
 
 *** ADDITIONAL INFORMATION ***
