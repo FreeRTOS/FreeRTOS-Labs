@@ -6,12 +6,13 @@ documentation, demo usability, or test coverage.  At this time the projects ARE
 A WORK IN PROGRESS and will be released in the main FreeRTOS directories of the
 download following full review and completion of the documentation.
 
-
+Please note, the FreeRTOS IoT libraries have been moved to a different download.
+They can be found at https://github.com/freertos/freertos/tree/lts-development.
 
 *** INTRODUCTION ***
 
-This distribution currently contains demos from the FreeRTOS task pool library,
-MQTT library, HTTPS Client library, Shadow library, and Jobs library.
+This distribution currently contains demos from the FreeRTOS Plus Posix 
+and FreeRTOS Plus FAT libraries.
 
 The pre-configured projects use the FreeRTOS kernel Windows port (often
 called the Windows simulator) to enable their evaluation using the free Visual
@@ -21,26 +22,24 @@ Studio tools and without needing specific microcontroller hardware.
 
 *** INSTRUCTIONS ***
 
-Instructions for configuring and using the FreeRTOS IoT libraries are in the
+Instructions for configuring and using the FreeRTOS-Labs Libraries
 following links:
 
-  + https://www.FreeRTOS.org/task-pool/
-  + https://www.FreeRTOS.org/mqtt/
-  + https://www.freertos.org/https/
-  + https://www.FreeRTOS.org/shadow/
-  + https://www.FreeRTOS.org/jobs/
+
+  + https://www.freertos.org/mqtt/preconfiguredexamplesLW.html
+  + https://www.FreeRTOS.org/FreeRTOS-Plus/FreeRTOS_Plus_POSIX/index.html
+  + /FreeRTOS-Plus/FreeRTOS_Plus_FAT/index.html
 
 
 *** LOCATING THE EXAMPLE PROJECTS ***
 
-The Visual Studio projects for each of the FreeRTOS IoT library examples are
+The Visual Studio projects for each of the FreeRTOS-Labs examples are
 located in sub-directories of the following top-level directories:
 
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/utilities
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/mqtt
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/https
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/shadow
-  + /FreeRTOS-Labs/Demo/FreeRTOS_IoT_Libraries/jobs
+  + https://www.FreeRTOS.org/mqtt/preconfiguredexamplesLW.html
+  + https://www.FreeRTOS.org/FreeRTOS-Plus/FreeRTOS_Plus_POSIX/demo/posix_demo.html
+  + https://www.FreeRTOS.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/TCP_FAT_demo_projects.html
+  
 
 
 *** ADDITIONAL INFORMATION ***
