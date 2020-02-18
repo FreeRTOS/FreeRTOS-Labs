@@ -1,6 +1,6 @@
 /*
- * Amazon FreeRTOS Platform V1.1.0
- * Copyright (C) 2019 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Platform V1.1.1
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -94,6 +94,24 @@
  * of a DNS name.
  */
 #define MAX_DNS_NAME_LENGTH    ( 253 )
+
+/**
+ * @brief Socket timeout in ticks.
+ * 
+ * The FreeRTOS APIs take a timeout in clock ticks.
+ */
+#define IOT_NETWORK_SOCKET_TIMEOUT_TICKS    ( pdMS_TO_TICKS( IOT_NETWORK_SOCKET_TIMEOUT_MS ) )
+
+/**
+ * @brief Timeout for the mutex that is used to serialize access to FreeRTOS_Select
+ * and related APIs.
+ *
+ * This mutex timeout needs to be greater than the IOT_NETWORK_SOCKET_TIMEOUT_TICKS
+ * to ensure that if one FreeRTOS_select() or related API call times out, the other
+ * API calls waiting for the mutex still have time left to execute.
+ */
+#define SOCKETSET_MUTEX_TIMEOUT_TICKS      ( pdMS_TO_TICKS( IOT_NETWORK_SOCKET_TIMEOUT_MS * 2 ) )
+
 /*-----------------------------------------------------------*/
 
 /**
@@ -150,9 +168,25 @@ static TaskHandle_t _networkTaskHandle;
 static SocketSet_t _socketSet;
 
 /**
+* @brief Mutex used to serialize access to FreeRTOS_select and related APIs.
+*
+* We call FreeRTOS_FD_SET() from the application task and FreeRTOS_select()
+* from the network task for the same socket set. These APIs are not thread
+* safe as of the current implementation. This mutex serializes access to
+* these APIs to ensure that these are not called simultaneously from multiple
+* threads.
+*/
+static SemaphoreHandle_t _socketSetMutex;
+
+/**
+ * @brief Storage space for _socketSetMutex.
+ */
+static StaticSemaphore_t _socketSetMutexStorage;        
+
+/**
  * @brief Connections in _socketSet.
  */
-static _networkConnection_t * _connections[ IOT_NETWORK_MAX_RECEIVE_CALLBACKS ];
+static _networkConnection_t * volatile _connections[ IOT_NETWORK_MAX_RECEIVE_CALLBACKS ];
 
 /**
  * @brief An #IotNetworkInterface_t that uses the functions in this file.
@@ -374,15 +408,67 @@ const IotNetworkInterface_t IotNetworkFreeRTOS =
 #endif /* if ( IOT_NETWORK_ENABLE_TLS == 1 ) */
 /*-----------------------------------------------------------*/
 
+/**
+ * @brief Check if there is any active connection with a receive callback.
+ *
+ * The _connections array tracks the active connections which have registered
+ * a callback to be invoked whenever any data is received on the connection.
+ * When a callback is registered for an active connection using the
+ * IotNetworkFreeRTOS_SetReceiveCallback() API, the connection is added to
+ * the _connections array. It is removed from the _connections array when
+ * the connection is closed using the IotNetworkFreeRTOS_Close() API.
+ *
+ * @return 1 if there is any active connection, 0 otherwise.
+ */
+static BaseType_t _isAnyConnectionActive( void )
+{
+    BaseType_t activeConnectionPresent = 0, i = 0;
+
+    for( i = 0; i < IOT_NETWORK_MAX_RECEIVE_CALLBACKS; i++ )
+    {
+        if( _connections[ i ] != NULL )
+        {
+            activeConnectionPresent = 1;
+            break;
+        }
+    }
+
+    return activeConnectionPresent;
+}
+
+/*-----------------------------------------------------------*/
+
 static void _networkTask( void * pvParameters )
 {
     _networkConnection_t * pConnection = NULL;
     BaseType_t socketEvents = 0, i = 0, socketStatus = 0;
+    const BaseType_t activeConnectionPresent = 1;
     SocketSet_t socketSet = pvParameters;
 
     while( true )
     {
-        socketEvents = FreeRTOS_select( socketSet, IOT_NETWORK_SOCKET_TIMEOUT_MS );
+        if( _isAnyConnectionActive() == activeConnectionPresent )
+        {
+            if( xSemaphoreTake( _socketSetMutex,
+                                SOCKETSET_MUTEX_TIMEOUT_TICKS ) == pdTRUE )
+            {
+                /* The usage of this routine must be serialized with FreeRTOS_FD_SET()
+                 * because it blocks the caller on same synchronization object that
+                 * FreeRTOS_FD_SET() blocks on. */
+                socketEvents = FreeRTOS_select( socketSet, 
+                                                IOT_NETWORK_SOCKET_TIMEOUT_TICKS );
+                xSemaphoreGive( _socketSetMutex );
+
+                /* This task must delay a bit so that any other waiting task, that
+                 * might be the same priority or lower, may grab the _socketSetMutex
+                 * before this task's next iteration. */
+                vTaskDelay(1);
+            }        
+            else
+            {
+                IotLogError( "Failed to obtain _socketSetMutex required to call FreeRTOS_select()." );
+            }
+        }
 
         if( socketEvents > 0 )
         {
@@ -423,6 +509,10 @@ static void _networkTask( void * pvParameters )
 IotNetworkError_t IotNetworkFreeRTOS_Init( void )
 {
     IOT_FUNCTION_ENTRY( IotNetworkError_t, IOT_NETWORK_SUCCESS );
+
+    /* Initialize the network connections in the socket set. If this array is 
+     * all NULL then that means there are no active sockets. */
+    memset( _connections, ( int )NULL, sizeof( _connections ) );
 
     #if ( IOT_NETWORK_ENABLE_TLS == 1 )
         int mbedtlsError = 0;
@@ -466,13 +556,16 @@ IotNetworkError_t IotNetworkFreeRTOS_Init( void )
         }
     #endif /* if ( IOT_NETWORK_ENABLE_TLS == 1 ) */
 
-    /* Create socket set for network task. */
+    /* Create the socket set for the network task. */
     _socketSet = FreeRTOS_CreateSocketSet();
 
     if( _socketSet == NULL )
     {
         IOT_SET_AND_GOTO_CLEANUP( IOT_NETWORK_FAILURE );
     }
+
+    /* Create the socket set mutex. */
+    _socketSetMutex = xSemaphoreCreateMutexStatic( &_socketSetMutexStorage );
 
     static StaticTask_t networkTask;
     static StackType_t networkTaskStack[ IOT_NETWORK_TASK_STACK_SIZE ];
@@ -519,7 +612,7 @@ IotNetworkError_t IotNetworkFreeRTOS_Create( IotNetworkServerInfo_t pServerInfo,
     Socket_t tcpSocket = FREERTOS_INVALID_SOCKET;
     BaseType_t socketStatus = 0;
     struct freertos_sockaddr serverAddress = { 0 };
-    const TickType_t receiveTimeout = pdMS_TO_TICKS( IOT_NETWORK_SOCKET_TIMEOUT_MS );
+    const TickType_t receiveTimeout = IOT_NETWORK_SOCKET_TIMEOUT_TICKS;
     _networkConnection_t * pNewNetworkConnection = NULL;
 
     /* Credentials are not used if TLS is disabled. */
@@ -668,9 +761,23 @@ IotNetworkError_t IotNetworkFreeRTOS_SetReceiveCallback( IotNetworkConnection_t 
     else
     {
         /* Add this socket to the socket set for the network task. */
-        FreeRTOS_FD_SET( pConnection->socket,
-                         _socketSet,
-                         eSELECT_READ );
+        if( xSemaphoreTake( _socketSetMutex, 
+                            SOCKETSET_MUTEX_TIMEOUT_TICKS ) == pdTRUE )
+        {
+            /* The usage of this routine must be serialized with FreeRTOS_select()
+             * because it blocks the caller on same synchronization object that
+             * FreeRTOS_select() blocks on. */
+            FreeRTOS_FD_SET( pConnection->socket,
+                             _socketSet,
+                             eSELECT_READ );
+
+            xSemaphoreGive( _socketSetMutex );
+        }
+        else
+        {
+            IotLogError( "Failed to obtain _socketSetMutex required to call FreeRTOS_FD_SET()." );
+            status = IOT_NETWORK_FAILURE;
+        }
     }
 
     return status;
@@ -687,7 +794,7 @@ size_t IotNetworkFreeRTOS_Send( IotNetworkConnection_t pConnection,
     /* Only one thread at a time may send on the connection. Lock the send
      * mutex to prevent other threads from sending. */
     if( xSemaphoreTake( pConnection->socketMutex,
-                        IOT_NETWORK_SOCKET_TIMEOUT_MS ) == pdTRUE )
+                        IOT_NETWORK_SOCKET_TIMEOUT_TICKS ) == pdTRUE )
     {
         #if ( IOT_NETWORK_ENABLE_TLS == 1 )
             if( pConnection->secured == pdTRUE )
@@ -732,6 +839,10 @@ size_t IotNetworkFreeRTOS_Send( IotNetworkConnection_t pConnection,
 
         xSemaphoreGive( pConnection->socketMutex );
     }
+    else
+    {
+        IotLogDebug( "Could not obtain the socket socketMutex needed for send." );
+    }
 
     IotLogDebug( "(Network connection %p) Sent %lu bytes.",
                  pConnection,
@@ -755,7 +866,7 @@ size_t IotNetworkFreeRTOS_Receive( IotNetworkConnection_t pConnection,
             if( pConnection->secured == pdTRUE )
             {
                 if( xSemaphoreTake( pConnection->socketMutex,
-                                    IOT_NETWORK_SOCKET_TIMEOUT_MS ) == pdTRUE )
+                                    IOT_NETWORK_SOCKET_TIMEOUT_TICKS ) == pdTRUE )
                 {
                     socketStatus = ( BaseType_t ) mbedtls_ssl_read( &( pConnection->ssl.context ),
                                                                     pBuffer + bytesReceived,
@@ -773,6 +884,7 @@ size_t IotNetworkFreeRTOS_Receive( IotNetworkConnection_t pConnection,
                 else
                 {
                     /* Could not obtain socket mutex, exit. */
+                     IotLogDebug( "Could not obtain the socketMutex needed for receive." );
                     break;
                 }
             }
@@ -839,7 +951,7 @@ size_t IotNetworkFreeRTOS_ReceiveUpto( IotNetworkConnection_t pConnection,
         if( pConnection->secured == pdTRUE )
         {
             if( xSemaphoreTake( pConnection->socketMutex,
-                                IOT_NETWORK_SOCKET_TIMEOUT_MS ) == pdTRUE )
+                                IOT_NETWORK_SOCKET_TIMEOUT_TICKS ) == pdTRUE )
             {
                 do
                 {
@@ -853,7 +965,7 @@ size_t IotNetworkFreeRTOS_ReceiveUpto( IotNetworkConnection_t pConnection,
             }
             else
             {
-                IotLogError( "Could not obtain the socket mutex." );
+                IotLogDebug( "Could not obtain the socket mutex needed for receiveUpto." );
             }
         }
         else
@@ -885,13 +997,14 @@ size_t IotNetworkFreeRTOS_ReceiveUpto( IotNetworkConnection_t pConnection,
 IotNetworkError_t IotNetworkFreeRTOS_Close( IotNetworkConnection_t pConnection )
 {
     BaseType_t socketStatus = 0, i = 0;
+    IotNetworkError_t status = IOT_NETWORK_SUCCESS;
 
     #if ( IOT_NETWORK_ENABLE_TLS == 1 )
         /* Notify the peer that the TLS connection is being closed. */
         if( pConnection->secured == pdTRUE )
         {
             if( xSemaphoreTake( pConnection->socketMutex,
-                                IOT_NETWORK_SOCKET_TIMEOUT_MS ) == pdTRUE )
+                                IOT_NETWORK_SOCKET_TIMEOUT_TICKS ) == pdTRUE )
             {
                 socketStatus = ( BaseType_t ) mbedtls_ssl_close_notify( &( pConnection->ssl.context ) );
 
@@ -914,6 +1027,10 @@ IotNetworkError_t IotNetworkFreeRTOS_Close( IotNetworkConnection_t pConnection )
 
                 xSemaphoreGive( pConnection->socketMutex );
             }
+            else
+            {
+                IotLogDebug( "Could not obtain the socketMutex needed for close." );
+            }
         }
     #endif /* if ( IOT_NETWORK_ENABLE_TLS == 1 ) */
 
@@ -925,6 +1042,7 @@ IotNetworkError_t IotNetworkFreeRTOS_Close( IotNetworkConnection_t pConnection )
     {
         IotLogWarn( "(Network connection %p) Failed to close connection.",
                     pConnection );
+        status = IOT_NETWORK_SYSTEM_ERROR;
     }
     else
     {
@@ -935,19 +1053,28 @@ IotNetworkError_t IotNetworkFreeRTOS_Close( IotNetworkConnection_t pConnection )
     /* Remove this connection from Select's socket set (if present). */
     for( i = 0; i < IOT_NETWORK_MAX_RECEIVE_CALLBACKS; i++ )
     {
+        /* Set the current connection to NULL in the active _connections list. */
         if( Atomic_CompareAndSwapPointers_p32( &_connections[ i ], NULL, pConnection ) == 1 )
         {
             FreeRTOS_FD_CLR( pConnection->socket, _socketSet, eSELECT_ALL );
         }
     }
 
-    return IOT_NETWORK_SUCCESS;
+    return status;
 }
 /*-----------------------------------------------------------*/
 
 IotNetworkError_t IotNetworkFreeRTOS_Destroy( IotNetworkConnection_t pConnection )
 {
-    FreeRTOS_closesocket( pConnection->socket );
+    BaseType_t closeSocketStatus = 0;
+    IotNetworkError_t status = IOT_NETWORK_SUCCESS;
+
+    closeSocketStatus = FreeRTOS_closesocket( pConnection->socket );
+
+    if( closeSocketStatus < 0 )
+    {
+        status = IOT_NETWORK_SYSTEM_ERROR;
+    }
 
     #if ( IOT_NETWORK_ENABLE_TLS == 1 )
         /* Free mbed TLS contexts. */
@@ -963,6 +1090,6 @@ IotNetworkError_t IotNetworkFreeRTOS_Destroy( IotNetworkConnection_t pConnection
     IotLogInfo( "(Network connection %p) Connection destroyed.",
                 pConnection );
 
-    return IOT_NETWORK_SUCCESS;
+    return status;
 }
 /*-----------------------------------------------------------*/

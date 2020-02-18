@@ -1,6 +1,6 @@
 /*
- * IoT Common V1.1.0
- * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * IoT Common V1.1.1
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -186,9 +186,9 @@ typedef struct IotLogConfig
  * @return No return value. On errors, it prints nothing.
  */
 /* @[declare_logging_generic] */
-void IotLog_Generic( int libraryLogSetting,
+void IotLog_Generic( int32_t libraryLogSetting,
                      const char * const pLibraryName,
-                     int messageLevel,
+                     int32_t messageLevel,
                      const IotLogConfig_t * const pLogConfig,
                      const char * const pFormat,
                      ... );

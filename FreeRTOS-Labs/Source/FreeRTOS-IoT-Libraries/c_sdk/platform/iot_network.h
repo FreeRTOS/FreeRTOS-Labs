@@ -1,6 +1,6 @@
 /*
  * IoT Platform V1.1.0
- * Copyright (C) 2019 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -35,6 +35,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+/* Platform types include. */
+#include "types/iot_platform_types.h"
+
 /**
  * @ingroup platform_datatypes_enums
  * @brief Return codes for [network functions](@ref platform_network_functions).
@@ -47,6 +50,19 @@ typedef enum IotNetworkError
     IOT_NETWORK_NO_MEMORY,     /**< Memory allocation failed. */
     IOT_NETWORK_SYSTEM_ERROR   /**< An error occurred when calling a system API. */
 } IotNetworkError_t;
+
+/**
+ * @ingroup platform_datatypes_enums
+ * @brief Disconnect reasons for [the network close callback](@ref platform_network_function_closecallback).
+ */
+typedef enum IotNetworkCloseReason
+{
+    IOT_NETWORK_NOT_CLOSED = 0,    /**< Not closed, still open */
+    IOT_NETWORK_SERVER_CLOSED,     /**< Server closed connection. */
+    IOT_NETWORK_TRANSPORT_FAILURE, /**< Transport failed. */
+    IOT_NETWORK_CLIENT_CLOSED,     /**< Client closed connection. */
+    IOT_NETWORK_UNKNOWN_CLOSED     /**< Unknown close reason. */
+} IotNetworkCloseReason_t;
 
 /**
  * @page platform_network_functions Networking
@@ -62,21 +78,27 @@ typedef enum IotNetworkError
  * Together, they represent a network stack.
  * - @functionname{platform_network_function_create}
  * - @functionname{platform_network_function_setreceivecallback}
+ * - @functionname{platform_network_function_setclosecallback}
  * - @functionname{platform_network_function_send}
  * - @functionname{platform_network_function_receive}
+ * - @functionname{platform_network_function_receiveupto}
  * - @functionname{platform_network_function_close}
  * - @functionname{platform_network_function_destroy}
  * - @functionname{platform_network_function_receivecallback}
+ * - @functionname{platform_network_function_closecallback}
  */
 
 /**
  * @functionpage{IotNetworkInterface_t::create,platform_network,create}
  * @functionpage{IotNetworkInterface_t::setReceiveCallback,platform_network,setreceivecallback}
+ * @functionpage{IotNetworkInterface_t::setCloseCallback,platform_network,setclosecallback}
  * @functionpage{IotNetworkInterface_t::send,platform_network,send}
  * @functionpage{IotNetworkInterface_t::receive,platform_network,receive}
+ * @functionpage{IotNetworkInterface_t::receiveupto,platform_network,receiveupto}
  * @functionpage{IotNetworkInterface_t::close,platform_network,close}
  * @functionpage{IotNetworkInterface_t::destroy,platform_network,destroy}
  * @functionpage{IotNetworkReceiveCallback_t,platform_network,receivecallback}
+ * @functionpage{IotNetworkReceiveCallback_t,platform_network,closecallback}
  */
 
 /**
@@ -95,6 +117,201 @@ typedef void ( * IotNetworkReceiveCallback_t )( IotNetworkConnection_t pConnecti
 /* @[declare_platform_network_receivecallback] */
 
 /**
+ * @brief Provide an asynchronous notification of network closing
+ *
+ * A function with this signature may be set with @ref platform_network_function_setclosecallback
+ * to be invoked when the network connection is closed.
+ *
+ * @param[in] pConnection The connection that was closed, defined by
+ * the network stack.
+ * @param[in] reason The reason the connection was closed
+ * @param[in] pContext The third argument passed to @ref platform_network_function_setclosecallback.
+ */
+/* @[declare_platform_network_closecallback] */
+typedef void ( * IotNetworkCloseCallback_t )( IotNetworkConnection_t pConnection,
+                                              IotNetworkCloseReason_t reason,
+                                              void * pContext );
+/* @[declare_platform_network_closecallback] */
+
+/**
+ * @brief Create a new network connection.
+ *
+ * This function allocates resources and establishes a new network connection.
+ * @param[in] pServerInfo Represents information needed to set up the
+ * new connection, defined by the network stack.
+ * @param[in] pCredentialInfo Represents information needed to secure the
+ * new connection, defined by the network stack.
+ * @param[out] pConnection Set to represent a new connection, defined by the
+ * network stack.
+ *
+ * @return Any #IotNetworkError_t, as defined by the network stack.
+ */
+/* @[declare_platform_network_create] */
+typedef IotNetworkError_t ( * IotNetworkCreate_t )( IotNetworkServerInfo_t pServerInfo,
+                                                    IotNetworkCredentials_t pCredentialInfo,
+                                                    IotNetworkConnection_t * pConnection );
+/* @[declare_platform_network_create] */
+
+/**
+ * @brief Register an @ref platform_network_function_receivecallback.
+ *
+ * Sets an @ref platform_network_function_receivecallback to be called
+ * asynchronously when data arrives on the network. The network stack
+ * should invoke this function "as if" it were the thread routine of a
+ * detached thread.
+ *
+ * Each network connection may only have one receive callback at any time.
+ * @ref platform_network_function_close is expected to remove any active
+ * receive callbacks.
+ *
+ * @param[in] pConnection The connection to associate with the receive callback.
+ * @param[in] receiveCallback The function to invoke for incoming network data.
+ * @param[in] pContext A value to pass as the first parameter to the receive callback.
+ *
+ * @return Any #IotNetworkError_t, as defined by the network stack.
+ *
+ * @see platform_network_function_receivecallback
+ */
+/* @[declare_platform_network_setreceivecallback] */
+typedef IotNetworkError_t ( * IotNetworkSetReceiveCallback_t )( IotNetworkConnection_t pConnection,
+                                                                IotNetworkReceiveCallback_t receiveCallback,
+                                                                void * pContext );
+/* @[declare_platform_network_setreceivecallback] */
+
+/**
+ * @brief Register an @ref platform_network_function_closecallback.
+ *
+ * Sets an @ref platform_network_function_closecallback to be called
+ * asynchronously when the network connection closes. The network stack
+ * should invoke this function "as if" it were the thread routine of a
+ * detached thread.
+ *
+ * Each network connection may only have one close callback at any time.
+ * @ref platform_network_function_close is expected to remove any active
+ * close callbacks.
+ *
+ * @param[in] pConnection The connection to associate with the close callback.
+ * @param[in] receiveCallback The function to invoke for incoming network close events.
+ * @param[in] pContext A value to pass as the first parameter to the close callback.
+ *
+ * @return Any #IotNetworkError_t, as defined by the network stack.
+ *
+ * @see platform_network_function_closecallback
+ */
+/* @[declare_platform_network_setclosecallback] */
+typedef IotNetworkError_t ( * IotNetworkSetCloseCallback_t )( IotNetworkConnection_t pConnection,
+                                                              IotNetworkCloseCallback_t closeCallback,
+                                                              void * pContext );
+/* @[declare_platform_network_setclosecallback] */
+
+/**
+ * @brief Send data over a return connection.
+ *
+ * Attempts to transmit `messageLength` bytes of `pMessage` across the
+ * connection represented by `pConnection`. Returns the number of bytes
+ * actually sent, `0` on failure.
+ *
+ * @param[in] pConnection The connection used to send data, defined by the
+ * network stack.
+ * @param[in] pMessage The message to send.
+ * @param[in] messageLength The length of `pMessage`.
+ *
+ * @return The number of bytes successfully sent, `0` on failure.
+ */
+/* @[declare_platform_network_send] */
+typedef size_t ( * IotNetworkSend_t )( IotNetworkConnection_t pConnection,
+                                       const uint8_t * pMessage,
+                                       size_t messageLength );
+/* @[declare_platform_network_send] */
+
+/**
+ * @brief Block and wait for incoming network data.
+ *
+ * Wait for a message of size `bytesRequested` to arrive on the network and
+ * place it in `pBuffer`.
+ *
+ * @param[in] pConnection The connection to wait on, defined by the network
+ * stack.
+ * @param[out] pBuffer Where to place the incoming network data. This buffer
+ * must be at least `bytesRequested` in size.
+ * @param[in] bytesRequested How many bytes to wait for. `pBuffer` must be at
+ * least this size.
+ *
+ * @return The number of bytes successfully received. This should be
+ * `bytesRequested` when successful. Any other value may indicate an error.
+ */
+/* @[declare_platform_network_receive] */
+typedef size_t ( * IotNetworkReceive_t )( IotNetworkConnection_t pConnection,
+                                          uint8_t * pBuffer,
+                                          size_t bytesRequested );
+/* @[declare_platform_network_receive] */
+
+/**
+ * @brief Read incoming data available in the network buffers.
+ *
+ * Reads bytes available in the network buffers into `pBuffer`.
+ * - If there is less data available than requested, it will return
+ *   the available number of bytes.
+ * - If there is more data available than requested, it will fill the
+ *   whole `pBuffer`.
+ * - If there is no data available, it will return 0.
+ *
+ * @param[in] pConnection The connection to receive data on, defined by
+ * the network stack.
+ * @param[out] pBuffer The buffer to place the incoming network data.
+ * @param[in] bufferSize The size of `pBuffer`.
+ *
+ * @return The number of bytes successfully received.
+ */
+/* @[declare_platform_network_receiveupto] */
+typedef size_t ( * IotNetworkReceiveUpto_t )( IotNetworkConnection_t pConnection,
+                                              uint8_t * pBuffer,
+                                              size_t bufferSize );
+/* @[declare_platform_network_receiveupto] */
+
+/**
+ * @brief Close a network connection.
+ *
+ * This function closes the connection, but does not release the resources
+ * used by the connection. This allows calls to other networking functions
+ * to return an error and handle a closed connection without the risk of
+ * crashing. Once it can be guaranteed that `pConnection` will no longer be
+ * used, the connection can be destroyed with @ref platform_network_function_destroy.
+ *
+ * In addition to closing the connection, this function should also remove
+ * any active [receive callback](@ref platform_network_function_receivecallback).
+ *
+ * @param[in] pConnection The network connection to close, defined by the
+ * network stack.
+ *
+ * @return Any #IotNetworkError_t, as defined by the network stack.
+ *
+ * @note It must be safe to call this function on an already-closed connection.
+ */
+/* @[declare_platform_network_close] */
+typedef IotNetworkError_t ( * IotNetworkClose_t )( IotNetworkConnection_t pConnection );
+/* @[declare_platform_network_close] */
+
+/**
+ * @brief Free resources used by a network connection.
+ *
+ * This function releases the resources of a closed connection. It should be
+ * called after @ref platform_network_function_close.
+ *
+ * @param[in] pConnection The network connection to destroy, defined by
+ * the network stack.
+ *
+ * @return Any #IotNetworkError_t, as defined by the network stack.
+ *
+ * @attention No function should be called on the network connection after
+ * calling this function. This function must be safe to call from a
+ * [receive callback](@ref platform_network_function_receivecallback).
+ */
+/* @[declare_platform_network_destroy] */
+typedef IotNetworkError_t ( * IotNetworkDestroy_t )( IotNetworkConnection_t pConnection );
+/* @[declare_platform_network_destroy] */
+
+/**
  * @ingroup platform_datatypes_paramstructs
  * @brief Represents the functions of a network stack.
  *
@@ -103,159 +320,14 @@ typedef void ( * IotNetworkReceiveCallback_t )( IotNetworkConnection_t pConnecti
  */
 typedef struct IotNetworkInterface
 {
-    /**
-     * @brief Create a new network connection.
-     *
-     * This function allocates resources and establishes a new network connection.
-     * @param[in] pServerInfo Represents information needed to set up the
-     * new connection, defined by the network stack.
-     * @param[in] pCredentialInfo Represents information needed to secure the
-     * new connection, defined by the network stack.
-     * @param[out] pConnection Set to represent a new connection, defined by the
-     * network stack.
-     *
-     * @return Any #IotNetworkError_t, as defined by the network stack.
-     */
-    /* @[declare_platform_network_create] */
-    IotNetworkError_t ( * create )( IotNetworkServerInfo_t pServerInfo,
-                                    IotNetworkCredentials_t pCredentialInfo,
-                                    IotNetworkConnection_t * pConnection );
-    /* @[declare_platform_network_create] */
-
-    /**
-     * @brief Register an @ref platform_network_function_receivecallback.
-     *
-     * Sets an @ref platform_network_function_receivecallback to be called
-     * asynchronously when data arrives on the network. The network stack
-     * should invoke this function "as if" it were the thread routine of a
-     * detached thread.
-     *
-     * Each network connection may only have one receive callback at any time.
-     * @ref platform_network_function_close is expected to remove any active
-     * receive callbacks.
-     *
-     * @param[in] pConnection The connection to associate with the receive callback.
-     * @param[in] receiveCallback The function to invoke for incoming network data.
-     * @param[in] pContext A value to pass as the first parameter to the receive callback.
-     *
-     * @return Any #IotNetworkError_t, as defined by the network stack.
-     *
-     * @see platform_network_function_receivecallback
-     */
-    /* @[declare_platform_network_setreceivecallback] */
-    IotNetworkError_t ( * setReceiveCallback )( IotNetworkConnection_t pConnection,
-                                                IotNetworkReceiveCallback_t receiveCallback,
-                                                void * pContext );
-    /* @[declare_platform_network_setreceivecallback] */
-
-    /**
-     * @brief Send data over a return connection.
-     *
-     * Attempts to transmit `messageLength` bytes of `pMessage` across the
-     * connection represented by `pConnection`. Returns the number of bytes
-     * actually sent, `0` on failure.
-     *
-     * @param[in] pConnection The connection used to send data, defined by the
-     * network stack.
-     * @param[in] pMessage The message to send.
-     * @param[in] messageLength The length of `pMessage`.
-     *
-     * @return The number of bytes successfully sent, `0` on failure.
-     */
-    /* @[declare_platform_network_send] */
-    size_t ( * send )( IotNetworkConnection_t pConnection,
-                       const uint8_t * pMessage,
-                       size_t messageLength );
-    /* @[declare_platform_network_send] */
-
-    /**
-     * @brief Block and wait for incoming network data.
-     *
-     * Wait for a message of size `bytesRequested` to arrive on the network and
-     * place it in `pBuffer`.
-     *
-     * @param[in] pConnection The connection to wait on, defined by the network
-     * stack.
-     * @param[out] pBuffer Where to place the incoming network data. This buffer
-     * must be at least `bytesRequested` in size.
-     * @param[in] bytesRequested How many bytes to wait for. `pBuffer` must be at
-     * least this size.
-     *
-     * @return The number of bytes successfully received. This should be
-     * `bytesRequested` when successful. Any other value may indicate an error.
-     */
-    /* @[declare_platform_network_receive] */
-    size_t ( * receive )( IotNetworkConnection_t pConnection,
-                          uint8_t * pBuffer,
-                          size_t bytesRequested );
-
-    /* @[declare_platform_network_receive] */
-
-    /**
-     * @brief Read incoming data available in the network buffers.
-     *
-     * Reads bytes available in the network buffers into `pBuffer`.
-     * - If there is less data available than requested, it will return
-     *   the available number of bytes.
-     * - If there is more data available than requested, it will fill the
-     *   whole `pBuffer`.
-     * - If there is no data available, it will return 0.
-     *
-     * @param[in] pConnection The connection to receive data on, defined by
-     * the network stack.
-     * @param[out] pBuffer The buffer to place the incoming network data.
-     * @param[in] bufferSize The size of `pBuffer`.
-     *
-     * @return The number of bytes successfully received.
-     */
-    /* @[declare_platform_network_receiveupto] */
-    size_t ( * receiveUpto )( IotNetworkConnection_t pConnection,
-                              uint8_t * pBuffer,
-                              size_t bufferSize );
-    /* @[declare_platform_network_receiveupto] */
-
-
-    /**
-     * @brief Close a network connection.
-     *
-     * This function closes the connection, but does not release the resources
-     * used by the connection. This allows calls to other networking functions
-     * to return an error and handle a closed connection without the risk of
-     * crashing. Once it can be guaranteed that `pConnection` will no longer be
-     * used, the connection can be destroyed with @ref platform_network_function_destroy.
-     *
-     * In addition to closing the connection, this function should also remove
-     * any active [receive callback](@ref platform_network_function_receivecallback).
-     *
-     * @param[in] pConnection The network connection to close, defined by the
-     * network stack.
-     *
-     * @return Any #IotNetworkError_t, as defined by the network stack.
-     *
-     * @note It must be safe to call this function on an already-closed connection.
-     */
-    /* @[declare_platform_network_close] */
-    IotNetworkError_t ( * close )( IotNetworkConnection_t pConnection );
-    /* @[declare_platform_network_close] */
-
-    /**
-     * @brief Free resources used by a network connection.
-     *
-     * This function releases the resources of a closed connection. It should be
-     * called after @ref platform_network_function_close.
-     *
-     * @param[in] pConnection The network connection to destroy, defined by
-     * the network stack.
-     *
-     * @return Any #IotNetworkError_t, as defined by the network stack.
-     *
-     * @attention No function should be called on the network connection after
-     * calling this function. This function must be safe to call from a
-     * [receive callback](@ref platform_network_function_receivecallback).
-     */
-    /* @[declare_platform_network_destroy] */
-    IotNetworkError_t ( * destroy )( IotNetworkConnection_t pConnection );
-    /* @[declare_platform_network_destroy] */
+    IotNetworkCreate_t create;                         /**< @brief Create network connection. */
+    IotNetworkSetReceiveCallback_t setReceiveCallback; /**< @brief Set receive callback. */
+    IotNetworkSetCloseCallback_t setCloseCallback;     /**< @brief Set close callback. */
+    IotNetworkSend_t send;                             /**< @brief Send data. */
+    IotNetworkReceive_t receive;                       /**< @brief Block and wait for receive data. */
+    IotNetworkReceiveUpto_t receiveUpto;               /**< @brief Receive data up to a specified length. */
+    IotNetworkClose_t close;                           /**< @brief Close network connection. */
+    IotNetworkDestroy_t destroy;                       /**< @brief Destroy network connection. */
 } IotNetworkInterface_t;
 
 /**
@@ -313,6 +385,10 @@ struct IotNetworkCredentials
     size_t clientCertSize;    /**< @brief Size associated with #IotNetworkCredentials.pClientCert. */
     const char * pPrivateKey; /**< @brief String representing the client certificate's private key. */
     size_t privateKeySize;    /**< @brief Size associated with #IotNetworkCredentials.pPrivateKey. */
+    const char * pUserName;   /**< @brief String representing the username for MQTT. */
+    size_t userNameSize;      /**< @brief Size associated with #IotNetworkCredentials.pUserName. */
+    const char * pPassword;   /**< @brief String representing the password for MQTT. */
+    size_t passwordSize;      /**< @brief Size associated with #IotNetworkCredentials.pPassword. */
 };
 
 #endif /* ifndef IOT_NETWORK_H_ */
