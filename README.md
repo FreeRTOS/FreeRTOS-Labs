@@ -3,14 +3,19 @@ This repository contains libraries and demos that are fully functional, but unde
 
 In this repository, we provide three demo projects: 
 - A light weight MQTT demo:
+
   ```
   FreeRTOS-Labs\Demo\FreeRTOS_IoT_Libraries\mqtt\mqtt_light_weight\mqtt_light_weight_demo.sln
   ```
+  
 - FAT file system demo: 
+
   ```
   FreeRTOS-Labs\Demo\FreeRTOS_Plus_FAT_Windows_Simulator\FreeRTOS_Plus_FAT.sln
   ```
+
 - POSIX threading API demo:
+
   ```
   FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\FreeRTOS_Plus_POSIX_with_actor.sln
   ```
