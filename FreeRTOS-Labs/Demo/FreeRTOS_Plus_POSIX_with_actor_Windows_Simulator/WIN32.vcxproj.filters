@@ -8,29 +8,8 @@
     <Filter Include="lib">
       <UniqueIdentifier>{e3396fdf-de1f-4cb9-975c-673cb9315287}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\include">
-      <UniqueIdentifier>{02f5b936-2f92-411d-89d3-985520c10e9d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\include\FreeRTOS_POSIX">
-      <UniqueIdentifier>{1f6970f5-2901-4d3b-a119-86195fed3601}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\include\FreeRTOS_POSIX\sys">
-      <UniqueIdentifier>{63611657-d97d-479c-af87-69d6817b564d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\FreeRTOS-Plus-POSIX">
-      <UniqueIdentifier>{7c2a7031-ca15-4d3e-838e-efe7b508f899}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\FreeRTOS-Plus-POSIX\include">
-      <UniqueIdentifier>{dddb94ad-d701-41db-ab34-8fd5b9b4d2db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\FreeRTOS-Plus-POSIX\source">
-      <UniqueIdentifier>{db0fccd4-1177-4630-8a6d-b1ea48d0b0fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lib\FreeRTOS">
       <UniqueIdentifier>{af3445a1-4908-4170-89ed-39345d90d30c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\include\private">
-      <UniqueIdentifier>{26ccdf01-559e-4934-9311-bd1a25bdd658}</UniqueIdentifier>
     </Filter>
     <Filter Include="configuration_files">
       <UniqueIdentifier>{19ff1a34-36de-4c48-9d10-3fb1fa0d1fa4}</UniqueIdentifier>
@@ -46,43 +25,31 @@
     <Filter Include="lib\FreeRTOS\Portable\MSVC-W">
       <UniqueIdentifier>{0447c18c-e805-43d8-8b36-744f7c7fb88f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\FreeRTOS-Plus-POSIX">
+      <UniqueIdentifier>{69f0d201-6431-464d-b056-e2f65f6026ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FreeRTOS-Plus-POSIX\source">
+      <UniqueIdentifier>{97f083ca-35db-4ba8-b9f2-359fc8b271f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FreeRTOS-Plus-POSIX\include">
+      <UniqueIdentifier>{4c51c94f-0c16-4bb9-8f1e-cd8d562dd3a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\include">
+      <UniqueIdentifier>{22654623-f802-4736-8cf7-7942b8a6147a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\include\FreeRTOS_POSIX">
+      <UniqueIdentifier>{f999220f-5e23-4340-9f52-e20e6a192ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\include\FreeRTOS_POSIX\sys">
+      <UniqueIdentifier>{bda389c4-cd84-42de-a420-34383152cc4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\include\private">
+      <UniqueIdentifier>{880b2d47-fcd1-4cff-939c-537e55026cf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>application_code</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_clock.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_mqueue.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_barrier.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_cond.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_mutex.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_sched.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_semaphore.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_timer.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_unistd.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
-    </ClCompile>
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_utils.c">
-      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\FreeRTOS\Source\portable\MemMang\heap_4.c">
       <Filter>lib\FreeRTOS\Portable\MemMang</Filter>
@@ -111,64 +78,100 @@
     <ClCompile Include="posix_demo.c">
       <Filter>application_code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_clock.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_mqueue.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_barrier.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_cond.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_mutex.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_sched.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_semaphore.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_timer.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_unistd.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_utils.c">
+      <Filter>lib\FreeRTOS-Plus-POSIX\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FreeRTOSConfig.h">
       <Filter>configuration_files</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX.h">
-      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX_internal.h">
-      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\portable\pc\windows\FreeRTOS_POSIX_portable.h">
-      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\portable\FreeRTOS_POSIX_portable_default.h">
-      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\private\aws_doubly_linked_list.h">
-      <Filter>lib\include\private</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\errno.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\fcntl.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\mqueue.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\pthread.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\sched.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\semaphore.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\signal.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\time.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\unistd.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\utils.h">
-      <Filter>lib\include\FreeRTOS_POSIX</Filter>
-    </ClInclude>
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\sys\types.h">
-      <Filter>lib\include\FreeRTOS_POSIX\sys</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\FreeRTOS\Source\portable\MSVC-MingW\portmacro.h">
       <Filter>lib\FreeRTOS\Portable\MSVC-W</Filter>
     </ClInclude>
     <ClInclude Include="posix_demo.h">
       <Filter>application_code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX.h">
+      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX_internal.h">
+      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX_types.h">
+      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\portable\FreeRTOS_POSIX_portable_default.h">
+      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\portable\pc\windows\FreeRTOS_POSIX_portable.h">
+      <Filter>lib\FreeRTOS-Plus-POSIX\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\errno.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\fcntl.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\mqueue.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\pthread.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\sched.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\semaphore.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\signal.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\time.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\unistd.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\utils.h">
+      <Filter>lib\include\FreeRTOS_POSIX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\sys\types.h">
+      <Filter>lib\include\FreeRTOS_POSIX\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\private\iot_doubly_linked_list.h">
+      <Filter>lib\include\private</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

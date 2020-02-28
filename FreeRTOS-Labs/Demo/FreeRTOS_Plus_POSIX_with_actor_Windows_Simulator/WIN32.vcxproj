@@ -57,7 +57,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\FreeRTOS\Source\include;..\..\..\FreeRTOS\Source\portable\MSVC-MingW;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\lib\FreeRTOS-Plus-POSIX\include\portable\pc\windows;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\lib\FreeRTOS-Plus-POSIX\include\portable;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\lib\FreeRTOS-Plus-POSIX\include;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\lib\FreeRTOS-Plus-POSIX\source;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\lib\include\private;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\lib\third_party\win_pcap;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator\lib\include;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator;..\..\..\FreeRTOS\Demo\Common\ethernet\lwip-1.4.0\ports\win32\WinPCap;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\FreeRTOS\Source\include;..\..\..\FreeRTOS\Source\portable\MSVC-MingW;..\..\..\FreeRTOS-Labs\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\portable\pc\windows;..\..\..\FreeRTOS-Labs\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\portable;..\..\..\FreeRTOS-Labs\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include;..\..\..\FreeRTOS-Labs\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source;..\..\..\FreeRTOS-Labs\Source\FreeRTOS-Plus-POSIX\include\private;..\..\..\FreeRTOS-Labs\Source\FreeRTOS-Plus-POSIX\include;..\..\..\FreeRTOS-Labs\Demo\FreeRTOS_Plus_POSIX_with_actor_Windows_Simulator;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0500;WINVER=0x400;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -140,17 +140,17 @@
     <ClCompile Include="..\..\..\FreeRTOS\Source\stream_buffer.c" />
     <ClCompile Include="..\..\..\FreeRTOS\Source\tasks.c" />
     <ClCompile Include="..\..\..\FreeRTOS\Source\timers.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_clock.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_mqueue.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_barrier.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_mutex.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_cond.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_sched.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_semaphore.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_timer.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_unistd.c" />
-    <ClCompile Include=".\lib\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_utils.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_clock.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_mqueue.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_barrier.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_cond.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_pthread_mutex.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_sched.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_semaphore.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_timer.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_unistd.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\source\FreeRTOS_POSIX_utils.c" />
     <ClCompile Include="main.c">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -160,22 +160,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\FreeRTOS\Source\portable\MSVC-MingW\portmacro.h" />
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX.h" />
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX_internal.h" />
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\portable\FreeRTOS_POSIX_portable_default.h" />
-    <ClInclude Include=".\lib\FreeRTOS-Plus-POSIX\include\portable\pc\windows\FreeRTOS_POSIX_portable.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\errno.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\fcntl.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\mqueue.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\pthread.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\sched.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\semaphore.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\signal.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\sys\types.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\time.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\unistd.h" />
-    <ClInclude Include=".\lib\include\FreeRTOS_POSIX\utils.h" />
-    <ClInclude Include=".\lib\include\private\aws_doubly_linked_list.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX_internal.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX_types.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\portable\FreeRTOS_POSIX_portable_default.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\FreeRTOS-Plus-POSIX\include\portable\pc\windows\FreeRTOS_POSIX_portable.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\errno.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\fcntl.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\mqueue.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\pthread.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\sched.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\semaphore.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\signal.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\sys\types.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\time.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\unistd.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\FreeRTOS_POSIX\utils.h" />
+    <ClInclude Include="..\..\Source\FreeRTOS-Plus-POSIX\include\private\iot_doubly_linked_list.h" />
     <ClInclude Include="FreeRTOSConfig.h" />
     <ClInclude Include="posix_demo.h" />
   </ItemGroup>
