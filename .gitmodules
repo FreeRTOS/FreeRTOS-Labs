@@ -4,3 +4,6 @@
 [submodule "FreeRTOS-Labs/Source/FreeRTOS-Plus-POSIX"]
 	path = FreeRTOS-Labs/Source/FreeRTOS-Plus-POSIX
 	url = ../Lab-Project-FreeRTOS-POSIX.git
+[submodule "FreeRTOS/Source"]
+	path = FreeRTOS/Source
+	url = ../FreeRTOS-Kernel.git
