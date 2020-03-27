@@ -1,9 +1,9 @@
 [submodule "FreeRTOS-Labs/Source/FreeRTOS-Plus-FAT"]
 	path = FreeRTOS-Labs/Source/FreeRTOS-Plus-FAT
-	url = ../Lab-Project-FreeRTOS-FAT.git
+	url = https://github.com/FreeRTOS/Lab-Project-FreeRTOS-FAT.git
 [submodule "FreeRTOS-Labs/Source/FreeRTOS-Plus-POSIX"]
 	path = FreeRTOS-Labs/Source/FreeRTOS-Plus-POSIX
-	url = ../Lab-Project-FreeRTOS-POSIX.git
+	url = https://github.com/FreeRTOS/Lab-Project-FreeRTOS-POSIX.git
 [submodule "FreeRTOS/Source"]
 	path = FreeRTOS/Source
-	url = ../FreeRTOS-Kernel.git
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
