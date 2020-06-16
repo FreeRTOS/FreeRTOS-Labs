@@ -34,4 +34,3 @@ void vPKCS11ManagementDemo( void )
     configPRINTF( ( "Hello from demo.\r\n" ) );
     vTaskDelete( NULL );
 }
-

@@ -58,7 +58,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>\\Mac\Home\Documents\FreeRTOS-Labs\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\pkcs11;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls_utils;..\..\..\FreeRTOS\Source\include;..\..\..\FreeRTOS\Source\portable\MSVC-MingW;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\pkcs11;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls_utils;..\..\..\FreeRTOS\Source\include;..\..\..\FreeRTOS\Source\portable\MSVC-MingW;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0500;WINVER=0x400;_CRT_SECURE_NO_WARNINGS;MBEDTLS_CONFIG_FILE="aws_mbedtls_config.h";CONFIG_MEDTLS_USE_AFR_MEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -139,85 +139,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\aes.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\aesni.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\arc4.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\aria.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\asn1parse.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\asn1write.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\base64.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\bignum.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\blowfish.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\camellia.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ccm.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\certs.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\chacha20.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\chachapoly.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\cipher.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\cipher_wrap.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\cmac.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ctr_drbg.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\debug.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\des.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\dhm.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ecdh.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ecdsa.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ecjpake.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ecp.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ecp_curves.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\entropy.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\entropy_poll.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\error.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\gcm.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\havege.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\hkdf.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\hmac_drbg.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\md.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\md2.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\md4.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\md5.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\md_wrap.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\memory_buffer_alloc.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\net_sockets.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\nist_kw.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\oid.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\padlock.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pem.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pk.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pkcs11.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pkcs12.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pkcs5.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pkparse.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pkwrite.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\pk_wrap.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\platform.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\platform_util.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\poly1305.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ripemd160.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\rsa.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\rsa_internal.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\sha1.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\sha256.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\sha512.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ssl_cache.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ssl_ciphersuites.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ssl_cli.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ssl_cookie.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ssl_srv.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ssl_ticket.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\ssl_tls.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\threading.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\timing.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\version.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\version_features.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\x509.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\x509write_crt.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\x509write_csr.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\x509_create.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\x509_crl.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\x509_crt.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\x509_csr.c" />
-    <ClCompile Include="..\..\..\..\amazon-freertos\libraries\3rdparty\mbedtls\library\xtea.c" />
     <ClCompile Include="..\..\..\FreeRTOS\Source\croutine.c" />
     <ClCompile Include="..\..\..\FreeRTOS\Source\event_groups.c" />
     <ClCompile Include="..\..\..\FreeRTOS\Source\list.c" />
@@ -227,6 +148,85 @@
     <ClCompile Include="..\..\..\FreeRTOS\Source\stream_buffer.c" />
     <ClCompile Include="..\..\..\FreeRTOS\Source\tasks.c" />
     <ClCompile Include="..\..\..\FreeRTOS\Source\timers.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\aes.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\aesni.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\arc4.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\aria.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\asn1parse.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\asn1write.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\base64.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\bignum.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\blowfish.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\camellia.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ccm.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\certs.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\chacha20.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\chachapoly.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\cipher.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\cipher_wrap.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\cmac.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ctr_drbg.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\debug.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\des.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\dhm.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ecdh.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ecdsa.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ecjpake.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ecp.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ecp_curves.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\entropy.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\entropy_poll.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\error.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\gcm.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\havege.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\hkdf.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\hmac_drbg.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\md.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\md2.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\md4.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\md5.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\md_wrap.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\memory_buffer_alloc.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\net_sockets.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\nist_kw.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\oid.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\padlock.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pem.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pk.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pkcs11.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pkcs12.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pkcs5.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pkparse.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pkwrite.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\pk_wrap.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\platform.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\platform_util.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\poly1305.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ripemd160.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\rsa.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\rsa_internal.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\sha1.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\sha256.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\sha512.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ssl_cache.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ssl_ciphersuites.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ssl_cli.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ssl_cookie.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ssl_srv.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ssl_ticket.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\ssl_tls.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\threading.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\timing.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\version.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\version_features.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\x509.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\x509write_crt.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\x509write_csr.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\x509_create.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\x509_crl.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\x509_crt.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\x509_csr.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\xtea.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls_utils\mbedtls_error.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls_utils\mbedtls_utils.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_crypto.c" />
@@ -338,6 +338,12 @@
     <ClInclude Include="aws_mbedtls_config.h" />
     <ClInclude Include="FreeRTOSConfig.h" />
     <ClInclude Include="pkcs11_demo_config.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
