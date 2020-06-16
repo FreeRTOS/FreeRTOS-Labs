@@ -29,6 +29,11 @@
 /* Standard includes. */
 #include "stdio.h"
 
+/* PKCS #11 includes. */
+#include "iot_pkcs11_config.h"
+#include "iot_pkcs11.h"
+#include "pkcs11.h"
+
 void vPKCS11ManagementDemo( void )
 {
     configPRINTF( ( "Hello from demo.\r\n" ) );
