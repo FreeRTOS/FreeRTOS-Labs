@@ -48,18 +48,36 @@
 /* PKCS #11 Demo Series Config */
 #include "pkcs11_demo_config.h"
 
+/* Prototype for the PKCS #11 "Management" demo. This demo covers the various 
+ * functions used to manage the internal state of the PKCS #11 stack, and then 
+ * demonstrates how to generate random numbers using PKCS #11.
+ */
 extern void vPKCS11ManagementDemo( void );
+
+/* 
+ * Private function for starting the various PKCS #11 demos. 
+ *
+ */
+static void prvStartPKCS11Demo( void )
+{
+    configPRINTF( ( "---------STARTING DEMO---------\r\n" ) );
+#if( configPKCS11_MANAGEMENT_DEMO == 1 )
+    vPKCS11ManagementDemo();
+#endif
+    configPRINTF( ( "---------Finished DEMO---------\r\n" ) );
+}
 
 /*-----------------------------------------------------------*/
 
 int main( void )
 {
-    /* TODO: Start up output. */
+    configPRINTF( ( "Creating PKCS #11 Demo Task.\r\n" ) );
     BaseType_t xReturned;
     TaskHandle_t xHandle = NULL;
 
+    /* Create the PKCS #11 demo task. */
     xReturned = xTaskCreate(
-        vPKCS11ManagementDemo,
+        prvStartPKCS11Demo,
         "PKCS11 Demo",
         configPKCS11_DEMO_STACK_SIZE,
         NULL,

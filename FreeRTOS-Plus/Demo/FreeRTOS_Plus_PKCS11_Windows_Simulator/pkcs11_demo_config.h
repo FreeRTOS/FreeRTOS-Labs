@@ -23,4 +23,12 @@
  * http://www.FreeRTOS.org
  */
 
+/*
+ * @brief this macro defines the stack size for the PKCS #11 demo task.
+ */
 #define configPKCS11_DEMO_STACK_SIZE   200
+
+/*
+ * @brief set this macro to "1" in order to run the PKCS #11 management demo.
+ */
+#define configPKCS11_MANAGEMENT_DEMO    1
