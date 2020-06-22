@@ -78,11 +78,6 @@
 /* Event group related definitions. */
 #define configUSE_EVENT_GROUPS			1
 
-/* Run time stats gathering configuration options. */
-#define configGENERATE_RUN_TIME_STATS			0
-#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() 
-#define portGET_RUN_TIME_COUNTER_VALUE() 
-
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 			0
 #define configMAX_CO_ROUTINE_PRIORITIES ( 2 )
@@ -127,75 +122,8 @@ functions. */
 
 /* Only used when running in the FreeRTOS Windows simulator.  Defines the
 priority of the task used to simulate Ethernet interrupts. */
+
 #define configMAC_ISR_SIMULATOR_PRIORITY	( configMAX_PRIORITIES - 1 )
-
-/* This demo creates a virtual network connection by accessing the raw Ethernet
-or WiFi data to and from a real network connection.  Many computers have more
-than one real network port, and configNETWORK_INTERFACE_TO_USE is used to tell
-the demo which real port should be used to create the virtual port.  The ports
-available are displayed on the console when the application is executed.  For
-example, on my development laptop setting configNETWORK_INTERFACE_TO_USE to 4
-results in the wired network being used, while setting
-configNETWORK_INTERFACE_TO_USE to 2 results in the wireless network being
-used. */
-#define configNETWORK_INTERFACE_TO_USE 1L
-
-/* The address of an echo server is only left in this project as it doubles as
-the address to which logging is sent should UDP logging be enabled. */
-#define configECHO_SERVER_ADDR0	192
-#define configECHO_SERVER_ADDR1 168
-#define configECHO_SERVER_ADDR2 0
-#define configECHO_SERVER_ADDR3 11
-
-/* Default MAC address configuration.  The demo creates a virtual network
-connection that uses this MAC address by accessing the raw Ethernet/WiFi data
-to and from a real network connection on the host PC.  See the
-configNETWORK_INTERFACE_TO_USE definition above for information on how to
-configure the real network connection to use. */
-#define configMAC_ADDR0		0x00
-#define configMAC_ADDR1		0x11
-#define configMAC_ADDR2		0x11
-#define configMAC_ADDR3		0x11
-#define configMAC_ADDR4		0x11
-#define configMAC_ADDR5		0x41
-
-/* Default IP address configuration.  Used in ipconfigUSE_DNS is set to 0, or
-ipconfigUSE_DNS is set to 1 but a DNS server cannot be contacted. */
-#define configIP_ADDR0		10
-#define configIP_ADDR1		10
-#define configIP_ADDR2		10
-#define configIP_ADDR3		200
-
-/* Default gateway IP address configuration.  Used in ipconfigUSE_DNS is set to
-0, or ipconfigUSE_DNS is set to 1 but a DNS server cannot be contacted. */
-#define configGATEWAY_ADDR0	10
-#define configGATEWAY_ADDR1	10
-#define configGATEWAY_ADDR2	10
-#define configGATEWAY_ADDR3	1
-
-/* Default DNS server configuration.  OpenDNS addresses are 208.67.222.222 and
-208.67.220.220.  Used in ipconfigUSE_DNS is set to 0, or ipconfigUSE_DNS is set
-to 1 but a DNS server cannot be contacted.*/
-#define configDNS_SERVER_ADDR0 	208
-#define configDNS_SERVER_ADDR1 	67
-#define configDNS_SERVER_ADDR2 	222
-#define configDNS_SERVER_ADDR3 	222
-
-/* Default netmask configuration.  Used in ipconfigUSE_DNS is set to 0, or
-ipconfigUSE_DNS is set to 1 but a DNS server cannot be contacted. */
-#define configNET_MASK0		255
-#define configNET_MASK1		0
-#define configNET_MASK2		0
-#define configNET_MASK3		0
-
-/* The UDP port to which print messages are sent. */
-#define configPRINT_PORT	( 15000 )
-
-/* Task pool definitions for the demos of IoT Libraries. */
-#define configTASKPOOL_ENABLE_ASSERTS				1
-#define configTASKPOOL_NUMBER_OF_WORKERS			1
-#define configTASKPOOL_WORKER_PRIORITY				tskIDLE_PRIORITY
-#define configTASKPOOL_WORKER_STACK_SIZE_BYTES		2048
 
 #if( defined( _MSC_VER ) && ( _MSC_VER <= 1600 ) && !defined( snprintf ) )
 	/* Map to Windows names. */
