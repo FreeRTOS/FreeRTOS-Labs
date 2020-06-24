@@ -123,8 +123,6 @@ functions. */
 /* Only used when running in the FreeRTOS Windows simulator.  Defines the
 priority of the task used to simulate Ethernet interrupts. */
 
-#define configMAC_ISR_SIMULATOR_PRIORITY	( configMAX_PRIORITIES - 1 )
-
 #if( defined( _MSC_VER ) && ( _MSC_VER <= 1600 ) && !defined( snprintf ) )
 	/* Map to Windows names. */
 	#define snprintf	_snprintf

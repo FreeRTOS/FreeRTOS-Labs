@@ -26,9 +26,20 @@
 /*
  * @brief this macro defines the stack size for the PKCS #11 demo task.
  */
-#define configPKCS11_DEMO_STACK_SIZE   200
+#define configPKCS11_DEMO_STACK_SIZE                200
 
 /*
- * @brief set this macro to "1" in order to run the PKCS #11 management demo.
+ * @brief set this macro to "1" in order to run the PKCS #11 management and
+ * random demo.
  */
-#define configPKCS11_MANAGEMENT_DEMO    1
+#define configPKCS11_MANAGEMENT_AND_RNG_DEMO        1
+
+/*
+ * @brief set this macro to "1" in order to run the PKCS #11 object demo.
+ */
+#define configPKCS11_MECHANISMS_AND_DIGESTS_DEMO    1
+
+/*
+ * @brief set this macro to "1" in order to run the PKCS #11 object demo.
+ */
+#define configPKCS11_OBJECT_DEMO                    1

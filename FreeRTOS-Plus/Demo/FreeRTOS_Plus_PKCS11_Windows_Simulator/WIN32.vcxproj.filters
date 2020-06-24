@@ -35,7 +35,7 @@
     <Filter Include="3rdparty\mbedtls_utils">
       <UniqueIdentifier>{23cd9d63-47f1-424e-991b-550c387fed20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Examples">
+    <Filter Include="examples">
       <UniqueIdentifier>{44f1dc25-5639-4f3f-a6ec-f5c19cb7fe8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -88,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\FreeRTOS\Source\portable\MSVC-MingW\port.c">
       <Filter>FreeRTOS\Source\Portable</Filter>
-    </ClCompile>
-    <ClCompile Include="Examples\ManagementAndRandomNumbers.c">
-      <Filter>Examples</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\aes.c">
       <Filter>3rdparty\mbedtls</Filter>
@@ -328,6 +325,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\xtea.c">
       <Filter>3rdparty\mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\management_and_rng.c">
+      <Filter>examples</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\objects.c">
+      <Filter>examples</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\mechanisms_and_digests.c">
+      <Filter>examples</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\common.c">
+      <Filter>examples</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
