@@ -48,22 +48,39 @@
 /* PKCS #11 Demo Series Config */
 #include "pkcs11_demo_config.h"
 
-/* Prototype for the PKCS #11 "Management" demo. This demo covers the various 
- * functions used to manage the internal state of the PKCS #11 stack, and then 
+/* Prototype for the PKCS #11 "Management" demo. This demo covers the various
+ * functions used to manage the internal state of the PKCS #11 stack, and then
  * demonstrates how to generate random numbers using PKCS #11.
  */
-extern void vPKCS11ManagementDemo( void );
+extern void vPKCS11ManagementAndRNGDemo( void );
 
-/* 
- * Private function for starting the various PKCS #11 demos. 
+/* Prototype for the PKCS #11 "Digests" demo. This demo covers how to query
+ * slots for supported capabilities, and creating a message digest if the
+ * slot supports it.
+ */
+extern void vPKCS11MechanismsAndDigestDemo( void );
+
+/* Prototype for the PKCS #11 "Object" demo. This demo covers objects and how
+ * they are defined and used within PKCS #11.
+ */
+extern void vPKCS11ObjectDemo( void );
+
+/*
+ * Private function for starting the various PKCS #11 demos.
  *
  */
 static void prvStartPKCS11Demo( void )
 {
     configPRINTF( ( "---------STARTING DEMO---------\r\n" ) );
-#if( configPKCS11_MANAGEMENT_DEMO == 1 )
-    vPKCS11ManagementDemo();
-#endif
+    #if ( configPKCS11_MANAGEMENT_AND_RNG_DEMO == 1 )
+        vPKCS11ManagementAndRNGDemo();
+    #endif
+    #if ( configPKCS11_MECHANISMS_AND_DIGESTS_DEMO == 1 )
+        vPKCS11MechanismsAndDigestDemo();
+    #endif
+    #if ( configPKCS11_OBJECT_DEMO == 1 )
+        vPKCS11ObjectDemo();
+    #endif
     configPRINTF( ( "---------Finished DEMO---------\r\n" ) );
 }
 

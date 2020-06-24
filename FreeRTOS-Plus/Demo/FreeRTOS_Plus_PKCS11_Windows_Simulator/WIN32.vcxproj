@@ -234,7 +234,10 @@
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pkcs11_mbedtls.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pki_utils.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\iot_pkcs11_pal.c" />
-    <ClCompile Include="Examples\ManagementAndRandomNumbers.c" />
+    <ClCompile Include="examples\common.c" />
+    <ClCompile Include="examples\management_and_rng.c" />
+    <ClCompile Include="examples\objects.c" />
+    <ClCompile Include="examples\mechanisms_and_digests.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>

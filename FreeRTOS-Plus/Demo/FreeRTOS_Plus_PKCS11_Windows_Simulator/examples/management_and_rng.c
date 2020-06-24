@@ -50,13 +50,14 @@
  * For simplicity, this file will refer to these functions as Management Functions.
  * 
  */
-void vPKCS11ManagementDemo( void )
+void vPKCS11ManagementAndRNGDemo( void )
 {
     /* We will use the terminology as defined in the standard, Cryptoki is in 
      * reference to the Cryptographic Token Interface defined in the PKCS #11 
      * standard. An implementation of Cryptoki is referred to as a 
      * "Cryptoki library". */
-    configPRINTF( ( "Starting PKCS #11 Management Demo.\r\n" ) );
+    configPRINTF( ( "\r\nStarting PKCS #11 Management and Random Number Generation" \
+                " Demo.\r\n" ) );
 
     /* CK_RV is the return type for a Cryptoki function. Generally the underlying
      * type is a CK_ULONG, it can also be a CKR_VENDOR_DEFINED type. */
@@ -211,8 +212,8 @@ void vPKCS11ManagementDemo( void )
     xResult = pxFunctionList->C_Finalize( NULL );
     configASSERT( xResult == CKR_OK );
 
-    configPRINTF( ( "Finished PKCS #11 Management Demo.\r\n" ) );
+    configPRINTF( ( "Finished PKCS #11 Management and Random Number Generation" \
+                " Demo.\r\n" ) );
 
     vPortFree( pxSlotId );
-    vTaskDelete( NULL );
 }
