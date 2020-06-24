@@ -34,20 +34,9 @@
 #include "iot_pkcs11.h"
 #include "pkcs11.h"
 
-/* This function contains standard setup code for PKCS #11. See the
- * "management_and_rng.c" file for the demo code explaining this section
- * of cryptoki.
- */
-extern void prvStart( CK_SESSION_HANDLE * pxSession,
-                      CK_SLOT_ID ** ppxSlotId );
-
-
-/* This function contains standard tear down code for PKCS #11. See the
- * "management_and_rng.c" file for the demo code explaining this section
- * of cryptoki.
- */
-extern void prvEnd( CK_SESSION_HANDLE xSession,
-                    CK_SLOT_ID * pxSlotId );
+/* Demo includes. */
+#include "demo_helpers.h"
+#include "pkcs11_demos.h"
 
 /**
  * This function details what Cryptoki mechanisms are, how to query a slot's
@@ -86,6 +75,11 @@ void vPKCS11MechanismsAndDigestDemo( void )
      */
     CK_MECHANISM_TYPE xMechanismType = 0;
 
+    /* This variable is not directly used, but is instantiated for demonstration
+     * purposes. 
+     */
+    ( void ) xMechanismType;
+
     /* The CK_MECHANISM_INFO allows the application to retrieve the minimum and
      * maximum key sizes supported by the mechanism (could be in bits or bytes).
      * The structure also has a flags field, that is populated with bit flags
@@ -108,7 +102,7 @@ void vPKCS11MechanismsAndDigestDemo( void )
 
     CK_BYTE pxKownMessage[] = "Hello world!";
 
-    prvStart( &hSession, &pxSlotId );
+    vStart( &hSession, &pxSlotId );
     xResult = C_GetFunctionList( &pxFunctionList );
     configASSERT( CKR_OK == xResult );
     configASSERT( pxFunctionList->C_GetMechanismInfo != NULL );
@@ -259,6 +253,6 @@ void vPKCS11MechanismsAndDigestDemo( void )
     configPRINTF( ( "\r\n" ) );
 
     configPRINTF( ( "Finished PKCS #11 Mechanisms and Digest Demo.\r\n" ) );
-    prvEnd( hSession, pxSlotId );
+    vEnd( hSession, pxSlotId );
 }
 

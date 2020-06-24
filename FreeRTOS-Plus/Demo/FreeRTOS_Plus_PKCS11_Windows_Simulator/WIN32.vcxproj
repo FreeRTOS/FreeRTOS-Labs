@@ -58,7 +58,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\pkcs11;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls_utils;..\..\..\FreeRTOS\Source\include;..\..\..\FreeRTOS\Source\portable\MSVC-MingW;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\pkcs11;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\include;..\..\..\FreeRTOS-Plus\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls_utils;..\..\..\FreeRTOS\Source\include;..\..\..\FreeRTOS\Source\portable\MSVC-MingW;examples;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0500;WINVER=0x400;_CRT_SECURE_NO_WARNINGS;MBEDTLS_CONFIG_FILE="aws_mbedtls_config.h";CONFIG_MEDTLS_USE_AFR_MEMORY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -76,6 +76,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ExceptionHandling>false</ExceptionHandling>
       <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4204;4221;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -234,7 +235,7 @@
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pkcs11_mbedtls.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pki_utils.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\iot_pkcs11_pal.c" />
-    <ClCompile Include="examples\common.c" />
+    <ClCompile Include="examples\demo_helpers.c" />
     <ClCompile Include="examples\management_and_rng.c" />
     <ClCompile Include="examples\objects.c" />
     <ClCompile Include="examples\mechanisms_and_digests.c" />
@@ -339,6 +340,8 @@
     <ClInclude Include="..\..\Source\FreeRTOS-Plus-PKCS11\include\iot_pki_utils.h" />
     <ClInclude Include="..\..\Source\FreeRTOS-Plus-PKCS11\include\threading_alt.h" />
     <ClInclude Include="aws_mbedtls_config.h" />
+    <ClInclude Include="examples\demo_helpers.h" />
+    <ClInclude Include="examples\pkcs11_demos.h" />
     <ClInclude Include="FreeRTOSConfig.h" />
     <ClInclude Include="pkcs11_demo_config.h" />
   </ItemGroup>

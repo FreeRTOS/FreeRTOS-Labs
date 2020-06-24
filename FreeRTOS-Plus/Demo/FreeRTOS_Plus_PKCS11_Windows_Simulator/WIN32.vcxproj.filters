@@ -335,7 +335,7 @@
     <ClCompile Include="examples\mechanisms_and_digests.c">
       <Filter>examples</Filter>
     </ClCompile>
-    <ClCompile Include="examples\common.c">
+    <ClCompile Include="examples\demo_helpers.c">
       <Filter>examples</Filter>
     </ClCompile>
   </ItemGroup>
@@ -634,6 +634,12 @@
       <Filter>3rdparty\mbedtls_utils</Filter>
     </ClInclude>
     <ClInclude Include="pkcs11_demo_config.h" />
+    <ClInclude Include="examples\pkcs11_demos.h">
+      <Filter>examples</Filter>
+    </ClInclude>
+    <ClInclude Include="examples\demo_helpers.h">
+      <Filter>examples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls\library\CMakeLists.txt">

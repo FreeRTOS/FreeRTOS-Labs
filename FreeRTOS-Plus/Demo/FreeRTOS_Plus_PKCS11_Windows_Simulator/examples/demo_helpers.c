@@ -35,11 +35,14 @@
 #include "iot_pkcs11.h"
 #include "pkcs11.h"
 
-/* This function contains standard setup code for PKCS #11. See the
- * "management_and_rng.c" file for the demo code explaining this section
- * of cryptoki.
- */
-void prvStart( CK_SESSION_HANDLE * pxSession,
+/* mbed TLS includes. */
+#include "mbedtls/pk.h"
+#include "mbedtls/oid.h"
+
+/* Helpers include. */
+#include "demo_helpers.h"
+
+void vStart( CK_SESSION_HANDLE * pxSession,
                CK_SLOT_ID ** ppxSlotId )
 {
     CK_RV xResult = CKR_OK;
@@ -96,11 +99,7 @@ void prvStart( CK_SESSION_HANDLE * pxSession,
 }
 /*-----------------------------------------------------------*/
 
-/* This function contains standard tear down code for PKCS #11. See the
- * "management_and_rng.c" file for the demo code explaining this section
- * of cryptoki.
- */
-void prvEnd( CK_SESSION_HANDLE xSession,
+void vEnd( CK_SESSION_HANDLE xSession,
              CK_SLOT_ID * pxSlotId )
 {
     C_CloseSession( xSession );
@@ -109,11 +108,13 @@ void prvEnd( CK_SESSION_HANDLE xSession,
 }
 /*-----------------------------------------------------------*/
 
-/* Write the ASN.1 encoded bytes of the device public key to the console. */
 void vWriteHexBytesToConsole( char * pcDescription,
                               CK_BYTE * pucData,
                               CK_ULONG ulDataLength )
 {
+    /* This function is simply a helper function to print the raw hex values
+     * of an EC public key. It's explanation is not within the scope of the demos
+     * and is sparsely commented. */
 #define BYTES_TO_DISPLAY_PER_ROW    16
     char pcByteRow[ 1 + ( BYTES_TO_DISPLAY_PER_ROW * 2 ) + ( BYTES_TO_DISPLAY_PER_ROW / 2 ) ];
     char * pcNextChar = pcByteRow;
@@ -124,7 +125,7 @@ void vWriteHexBytesToConsole( char * pcDescription,
     configPRINTF( ( "%s, %d bytes:\r\n", pcDescription, ulDataLength ) );
 
     /* Iterate over the bytes of the encoded public key. */
-    for( ; ulIndex < ulDataLength; ulIndex++ )
+    for( ulIndex = 0; ulIndex < ulDataLength; ulIndex++ )
     {
         /* Convert one byte to ASCII hex. */
         ucByteValue = *( pucData + ulIndex );
@@ -167,6 +168,9 @@ CK_RV vExportPublicKey( CK_SESSION_HANDLE xSession,
                         CK_BYTE ** ppucDerPublicKey,
                         CK_ULONG * pulDerPublicKeyLength )
 {
+    /* This function is simply a helper function to export the raw hex values
+     * of an EC public key into a buffer. It's explanation is not within the 
+     * scope of the demos and is sparsely commented. */
     CK_RV xResult;
     CK_FUNCTION_LIST_PTR pxFunctionList;
     CK_KEY_TYPE xKeyType = 0;
@@ -255,3 +259,4 @@ CK_RV vExportPublicKey( CK_SESSION_HANDLE xSession,
     return xResult;
 }
 /*-----------------------------------------------------------*/
+
