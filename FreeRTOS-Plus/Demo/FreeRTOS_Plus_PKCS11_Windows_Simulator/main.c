@@ -65,6 +65,9 @@ static void prvStartPKCS11Demo( void )
     #if ( configPKCS11_OBJECT_DEMO == 1 )
         vPKCS11ObjectDemo();
     #endif
+    #if ( configPKCS11_SIGN_AND_VERIFY_DEMO == 1 )
+        vPKCS11SignVerifyDemo();
+    #endif
     configPRINTF( ( "---------Finished DEMO---------\r\n" ) );
 }
 

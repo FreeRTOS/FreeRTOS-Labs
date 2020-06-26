@@ -49,9 +49,6 @@
  * Slot and Token Management Functions
  * Session Management Functions
  * Random Number Generation Functions
- *
- * For simplicity, this file will refer to these functions as Management Functions.
- * 
  */
 void vPKCS11ManagementAndRNGDemo( void )
 {

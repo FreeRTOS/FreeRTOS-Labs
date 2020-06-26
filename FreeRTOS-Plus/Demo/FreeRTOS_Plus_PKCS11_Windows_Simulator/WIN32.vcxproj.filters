@@ -338,6 +338,9 @@
     <ClCompile Include="examples\demo_helpers.c">
       <Filter>examples</Filter>
     </ClCompile>
+    <ClCompile Include="examples\sign_and_verify.c">
+      <Filter>examples</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FreeRTOSConfig.h" />
