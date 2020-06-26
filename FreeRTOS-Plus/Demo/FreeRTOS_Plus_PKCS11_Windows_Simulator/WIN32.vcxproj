@@ -239,6 +239,7 @@
     <ClCompile Include="examples\management_and_rng.c" />
     <ClCompile Include="examples\objects.c" />
     <ClCompile Include="examples\mechanisms_and_digests.c" />
+    <ClCompile Include="examples\sign_and_verify.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
