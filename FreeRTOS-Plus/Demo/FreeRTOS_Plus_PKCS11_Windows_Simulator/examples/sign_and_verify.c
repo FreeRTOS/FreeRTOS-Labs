@@ -33,6 +33,7 @@
 #include "iot_pkcs11_config.h"
 #include "iot_pkcs11.h"
 #include "pkcs11.h"
+#include "iot_pki_utils.h"
 
 /* Demo includes. */
 #include "demo_helpers.h"
@@ -78,7 +79,7 @@ void vPKCS11SignVerifyDemo( void )
     CK_ULONG ulDerPublicKeyLength = 0;
 
     /* Digest variables. See "mechanisms_and_digests" for an explanation. */
-    CK_BYTE pxKownMessage[] = { "Hello world" };
+    CK_BYTE pxKnownMessage[] = { "Hello world" };
     CK_BYTE xDigestResult[ pkcs11SHA256_DIGEST_LENGTH ] = { 0 };
     CK_ULONG ulDigestLength = pkcs11SHA256_DIGEST_LENGTH;
     CK_MECHANISM xDigestMechanism = { 0 };
@@ -175,9 +176,9 @@ void vPKCS11SignVerifyDemo( void )
 
     /* Pass a pointer to the buffer of bytes to be hashed, and it's size. */
     xResult = pxFunctionList->C_DigestUpdate( hSession,
-                                              pxKownMessage,
+                                              pxKnownMessage,
                                               /* Strip NULL Terminator. */
-                                              sizeof( pxKownMessage ) - 1 );
+                                              sizeof( pxKnownMessage ) - 1 );
     configASSERT( CKR_OK == xResult );
 
     /* Retrieve the digest buffer. Since the mechanism is a SHA-256 algorithm,
@@ -191,7 +192,7 @@ void vPKCS11SignVerifyDemo( void )
 
     /********************************* Sign **********************************/
 
-    configPRINTF( ( "Signing known message:\r\n %s", 
+    configPRINTF( ( "Signing known message:\r\n %s\r\n", 
                 ( char * ) pxKnownMessage ) );
 
     /* Initializes the sign operation and sets what mechanism will be used
@@ -306,7 +307,7 @@ void vPKCS11SignVerifyDemo( void )
      * See https://en.wikipedia.org/wiki/ASN.1 for more information about the 
      * ASN.1 encoding format.
      */
-    PKI_pkcs11SignatureTombedTLSSignature( xSignature, &xSignatureLength );
+    PKI_pkcs11SignatureTombedTLSSignature( xSignature, ( size_t * ) &xSignatureLength );
 
 
     /* The following loop will output the signature in hex. 
