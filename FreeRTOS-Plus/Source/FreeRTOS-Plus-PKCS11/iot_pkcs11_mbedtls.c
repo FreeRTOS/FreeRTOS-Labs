@@ -4105,6 +4105,18 @@ static CK_RV prvCheckGenerateKeyPairPublicTemplate( CK_ATTRIBUTE ** ppxLabel,
             *pulAttributeMap |= VERIFY_IN_TEMPLATE;
             break;
 
+        case ( CKA_TOKEN ):
+            ( void ) memcpy( &xBool, pxAttribute->pValue, sizeof( CK_BBOOL ) );
+
+            /* See explanation in prvCheckValidSessionAndModule for this exception. */
+            /* coverity[misra_c_2012_rule_10_5_violation] */
+            if( xBool != ( CK_BBOOL ) CK_TRUE )
+            {
+                PKCS11_PRINT( ( "ERROR: Only token key generation is supported. \r\n" ) );
+                xResult = CKR_ATTRIBUTE_VALUE_INVALID;
+            }
+            break;
+
         default:
             xResult = CKR_TEMPLATE_INCONSISTENT;
             break;

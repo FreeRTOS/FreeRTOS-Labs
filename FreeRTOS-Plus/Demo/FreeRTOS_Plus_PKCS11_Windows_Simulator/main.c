@@ -26,7 +26,7 @@
  */
 
 /***
- * See https://www.FreeRTOS.org/mqtt/index.html for configuration and usage instructions.
+ * See https://www.FreeRTOS.org/pkcs11/index.html for configuration and usage instructions.
  ***/
 
 /* Standard includes. */
@@ -45,25 +45,9 @@
 #include <wincrypt.h>
 #include "mbedtls/entropy.h"
 
-/* PKCS #11 Demo Series Config */
+/* PKCS #11 Demo includes. */
 #include "pkcs11_demo_config.h"
-
-/* Prototype for the PKCS #11 "Management" demo. This demo covers the various
- * functions used to manage the internal state of the PKCS #11 stack, and then
- * demonstrates how to generate random numbers using PKCS #11.
- */
-extern void vPKCS11ManagementAndRNGDemo( void );
-
-/* Prototype for the PKCS #11 "Digests" demo. This demo covers how to query
- * slots for supported capabilities, and creating a message digest if the
- * slot supports it.
- */
-extern void vPKCS11MechanismsAndDigestDemo( void );
-
-/* Prototype for the PKCS #11 "Object" demo. This demo covers objects and how
- * they are defined and used within PKCS #11.
- */
-extern void vPKCS11ObjectDemo( void );
+#include "pkcs11_demos.h"
 
 /*
  * Private function for starting the various PKCS #11 demos.
@@ -94,7 +78,7 @@ int main( void )
 
     /* Create the PKCS #11 demo task. */
     xReturned = xTaskCreate(
-        prvStartPKCS11Demo,
+        ( TaskFunction_t ) prvStartPKCS11Demo,
         "PKCS11 Demo",
         configPKCS11_DEMO_STACK_SIZE,
         NULL,

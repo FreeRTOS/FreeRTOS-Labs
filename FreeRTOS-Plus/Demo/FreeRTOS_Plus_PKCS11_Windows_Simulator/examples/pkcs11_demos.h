@@ -22,25 +22,24 @@
  * http://aws.amazon.com/freertos
  * http://www.FreeRTOS.org
  */
+#ifndef _PKCS11_DEMOS_h_
+#define _PKCS11_DEMOS_h_
 
-/*
- * @brief this macro defines the stack size for the PKCS #11 demo task.
+/* Prototype for the PKCS #11 "Management" demo. This demo covers the various
+ * functions used to manage the internal state of the PKCS #11 stack, and then
+ * demonstrates how to generate random numbers using PKCS #11.
  */
-#define configPKCS11_DEMO_STACK_SIZE                200
+void vPKCS11ManagementAndRNGDemo( void );
 
-/*
- * @brief set this macro to "1" in order to run the PKCS #11 management and
- * random number generator demo.
+/* Prototype for the PKCS #11 "Digests" demo. This demo covers how to query
+ * slots for supported capabilities, and creating a message digest if the
+ * slot supports it.
  */
-#define configPKCS11_MANAGEMENT_AND_RNG_DEMO        1
+void vPKCS11MechanismsAndDigestDemo( void );
 
-/*
- * @brief set this macro to "1" in order to run the PKCS #11 mechanisms and
- * digest demo.
+/* Prototype for the PKCS #11 "Object" demo. This demo covers objects and how
+ * they are defined and used within PKCS #11.
  */
-#define configPKCS11_MECHANISMS_AND_DIGESTS_DEMO    1
+void vPKCS11ObjectDemo( void );
 
-/*
- * @brief set this macro to "1" in order to run the PKCS #11 object demo.
- */
-#define configPKCS11_OBJECT_DEMO                    1
+#endif /* _PKCS11_DEMOS_h_ */

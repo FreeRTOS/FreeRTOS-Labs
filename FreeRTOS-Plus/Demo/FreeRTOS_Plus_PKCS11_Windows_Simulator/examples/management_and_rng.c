@@ -34,6 +34,9 @@
 #include "iot_pkcs11.h"
 #include "pkcs11.h"
 
+/* Demo include. */
+#include "pkcs11_demos.h"
+
 /**
  * This function details how to use the PKCS #11 "Management" functions to 
  * manage the internal state machine of the PKCS #11 implementation. These
@@ -185,7 +188,7 @@ void vPKCS11ManagementAndRNGDemo( void )
      * the length of the byte buffer. Then it will fill this buffer with random
      * bytes. */
     xResult = pxFunctionList->C_GenerateRandom( hSession,
-                                                &xRandomData,
+                                                xRandomData,
                                                 sizeof( xRandomData ) );
     configASSERT( xResult == CKR_OK );
 
