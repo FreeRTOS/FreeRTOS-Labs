@@ -42,4 +42,15 @@ void vPKCS11MechanismsAndDigestDemo( void );
  */
 void vPKCS11ObjectDemo( void );
 
+/* Prototype for the PKCS #11 "Sign and Verify" demo. This demo covers how 
+ * PKCS #11 can be used to sign a message, and verify the integrity of a message
+ * using private and public keys.
+ *
+ * This demo will also cover the "iot_pkcs11.h" functions, and how they can be
+ * used to make the PKCS #11 flow easier to use.
+ *
+ * Warning: This demo depends on the objects created in the objects demo.
+ */
+void vPKCS11SignVerifyDemo( void );
+
 #endif /* _PKCS11_DEMOS_h_ */

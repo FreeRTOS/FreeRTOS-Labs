@@ -44,6 +44,10 @@
 /* RSA private key that has been generated off the device.
  * This key will be used as an example for importing an object onto the device.
  * This is useful when the device itself cannot create credentials.
+ *
+ * WARNING: This should never be done in production. This key is only hardcoded
+ * in this demo for demonstration purposes. It is a major security risk to add
+ * a private key as a constant, or in readable memory. 
  */
 #define pkcs11demo_RSA_PRIVATE_KEY                                       \
     ""                                                                   \
@@ -126,7 +130,7 @@ void vPKCS11ObjectDemo( void )
     configPRINTF( ( "\r\nFinished PKCS #11 Objects Demo.\r\n" ) );
 }
 
-static void prvObjectImporting()
+static void prvObjectImporting( void )
 {
     configPRINTF( ( "---------Importing Objects---------\r\n" ) );
     configPRINTF( ( "Importing RSA Private Key...\r\n" ) );
@@ -241,8 +245,6 @@ static void prvObjectImporting()
 
     configPRINTF( ( "Creating private key with label: %s \r\n",
                     pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS ) );
-    configPRINTF( ( "FreeRTOS_P11_Key.dat has been created in the Visual Studio" \
-                    " Solution directory\r\n" ) );
 
     /* Once the Cryptoki library has finished importing the new RSA private key
      * a CK_OBJECT_HANDLE is associated with it. The application can now use this
@@ -268,6 +270,9 @@ static void prvObjectImporting()
     configASSERT( xResult == CKR_OK );
     configASSERT( xPrivateKeyHandle != CK_INVALID_HANDLE );
 
+    configPRINTF( ( "FreeRTOS_P11_Key.dat has been created in the Visual Studio" \
+                    " Solution directory\r\n" ) );
+
     /* Clean up mbed TLS context that was used to parse the RSA key. */
     mbedtls_pk_free( &xMbedPkContext );
 
@@ -276,7 +281,7 @@ static void prvObjectImporting()
     configPRINTF( ( "---------Finished Importing Objects---------\r\n" ) );
 }
 
-static void prvObjectGeneration()
+static void prvObjectGeneration( void )
 {
     configPRINTF( ( "---------Generating Objects---------\r\n" ) );
 
