@@ -44,3 +44,12 @@
  * @brief set this macro to "1" in order to run the PKCS #11 object demo.
  */
 #define configPKCS11_OBJECT_DEMO                    1
+
+/*
+ * @brief set this macro to "1" in order to run the PKCS #11 sign and verify 
+ * demo.
+ *
+ * @warning This demo relies on the objects created in the object demo.
+ */
+#define configPKCS11_SIGN_AND_VERIFY_DEMO           1
+
