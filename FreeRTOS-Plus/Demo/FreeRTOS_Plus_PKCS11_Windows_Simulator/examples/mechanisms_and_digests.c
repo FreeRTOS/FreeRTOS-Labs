@@ -189,7 +189,7 @@ void vPKCS11MechanismsAndDigestDemo( void )
     else
     {
         configPRINTF( ( "This Cryptoki library does not support verifying" \
-                        "messages with ECDSA public keys.\r\n" ) );
+                        " messages with ECDSA public keys.\r\n" ) );
     }
 
     configASSERT( MechanismInfo.ulMaxKeySize >= pkcs11ECDSA_P256_KEY_BITS );
@@ -203,12 +203,12 @@ void vPKCS11MechanismsAndDigestDemo( void )
 
     if( 0 != ( CKF_DIGEST & MechanismInfo.flags ) )
     {
-        configPRINTF( ( "The Cryptoki library supports the" \
+        configPRINTF( ( "The Cryptoki library supports the " \
                         "SHA-256 algorithm.\r\n" ) );
     }
     else
     {
-        configPRINTF( ( "The Cryptoki library doesn't support the" \
+        configPRINTF( ( "The Cryptoki library doesn't support the " \
                         "SHA-256 algorithm.\r\n" ) );
     }
 
