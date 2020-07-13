@@ -41,50 +41,61 @@
 #include "demo_helpers.h"
 #include "pkcs11_demos.h"
 
-/* RSA private key that has been generated off the device.
+/* RSA certificate that has been generated off the device.
  * This key will be used as an example for importing an object onto the device.
- * This is useful when the device itself cannot create credentials.
- *
- * WARNING: This should never be done in production. This key is only hardcoded
- * in this demo for demonstration purposes. It is a major security risk to add
- * a private key as a constant, or in readable memory. 
+ * This is useful when the device itself cannot create credentials or for storing
+ * a well known CA certificate.
  */
-#define pkcs11demo_RSA_PRIVATE_KEY                                       \
+#define pkcs11demo_RSA_CERTIFICATE                                       \
     ""                                                                   \
-    "-----BEGIN RSA PRIVATE KEY-----\n"                                  \
-    "MIIEowIBAAKCAQEAwLBla8T5AZ7+Kuvdam5PNv768gBqviiwDSCrcIu2CN9/TAtF\n" \
-    "D+euyAB7l56wFb8tZXCXTL8IvkOFsW/dhgkv3MSa1GSfDjSzd9diz8UVdDDtngWr\n" \
-    "S4uWGK9k5nNWslAZVdbgGGIsYNLEy3as2WDWHTgq6wUIYLyOMN7Ii2D6LvWYT7bP\n" \
-    "DSWVYIHxpac5q6nIlqfmBWJGGseg0xgn5OGX46c5Q1ZbP+UxHwRLEs32Yngntwnq\n" \
-    "nmSYigSM4q70/DL3G9n2EXX6HUe6ef0grWZ754BI33V6HU2QFlltxApPTpztwuXy\n" \
-    "SRP+JmDyS06A5BB7xjxBWGiTPexvwy9g0eJ8AQIDAQABAoIBABH9pkqMpo8vMB4D\n" \
-    "zbWNPRoubnG/9jdxBxcCsN8ePE3RyEnqV3VntVr5KJD8gQZWxj9NZuMEhyV0mnv5\n" \
-    "rN5B51UeijJAftVNuF/9HT228gzaMKVrdBXmn4oIfkxCAps9fVAVcvDz4Z7crwEs\n" \
-    "QHE/aF5sCx3MZ37YvBH2CxVwZYuSutrYs9mIAGIHPiEKS/LN0yxrOs+lpNic0yqh\n" \
-    "dpWpi/IyalpEkpxXuTBu0u8u/cX8b3BUHAyFpKXm4gF/n609CGL1jexonJLbJb2B\n" \
-    "I6Bmxdh4/IpufaGUJ3r7oYal0Q3grV7AA28bXI+Mg+Uzz/6I49Tthtn7VPONnTq4\n" \
-    "aVM+700CgYEA/tntlWjB//UEDahsvyBmgJOUyeZuYG1asbFKG515rncBBHrI3QqW\n" \
-    "78rVVqCQl4w1W0hh3rHmaRC8XneWljGyZ264672wmaoy8T6eOiDiQITfxk3ayhjQ\n" \
-    "Yw1IcCvyUzes6RrbKW3qwIFc0qwhMU0t8iofr8plaGktJs+iTtoqbjMCgYEAwY69\n" \
-    "RcPbSFrl7rAFg34tZss0nJC65QoGO9eEnX1UA4qW3vKEq6WKRNYrjPu4Cb3cfVQb\n" \
-    "4I3pnZDQXUJ8sBX89UGxwlPVEPtQVjyhf9vH3zVTHHgfz1m4P0VD183Bj+mDkQsN\n" \
-    "1LuVMaQiZRU2C+yyflJL2n88fJXNBD2+L09F0PsCgYEAq94COIF2W4w8GI3eEKLk\n" \
-    "HY/phqNtCoCU6kK6zJbNqde9iuzXKyJqGfq7FvmfqWQ304Cj6BAnZ/GOZ1LU7iND\n" \
-    "wjdMZEb/oxHB2ym0gVUN4B773ntAsow7dKFPmb45ZN+mL2oaJP1olDxpgfXtSJdZ\n" \
-    "BfhceCvRabGMbqEWP4EnnjsCgYBgzo1nuT+RfrUFnlADpjX69aNIszJmn47imzYe\n" \
-    "trIwWz5+H3mvh8oSB7QcfUFczfLbVBflRdUUE3vDSR+nyjeMSuEnOlqUdb2GhCia\n" \
-    "FEhxIPCCiqoOQOdf7bqy0pv+6GH/RzIRtgg2ncr+F4/Cgw37FBoQHBcakKnLdz4J\n" \
-    "13IpxQKBgAEj3FDco2hHjdmEVCVXTVA+SPhwkTlzaMk/GkS9ncteaJrHgPaTc3i2\n" \
-    "PJz7uuDt64hf5O9Zi5ecXsPueG8DN3oIPMoFbo/mA2A4ZBUnB8BDrC+3inYuDRxu\n" \
-    "GdWIVVVleMjIDhuhavfzmfBgoir2wQgwnJLPd0vOMDafC6WlcN17\n"             \
-    "-----END RSA PRIVATE KEY-----"
+    "-----BEGIN CERTIFICATE-----\n" \
+    "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\n" \
+    "xg07nhvDeydwB48xXrPQ1KutrRyh\n" \
+    "-----END CERTIFICATE-----"
+
+/* This function can be found in 
+ * FreeRTOS/FreeRTOS-Plus/Source/FreeRTOS-Plus-PKCS11/3rdparty/mbedtls_utils/mbedtls_utils.c.
+ * It will be used to convert the RSA certificate from PEM format 
+ * to DER format. */
+extern int convert_pem_to_der( const unsigned char * pucInput,
+                               size_t xLen,
+                               unsigned char * pucOutput,
+                               size_t * pxOlen );
+/*-----------------------------------------------------------*/
+
 
 /**
- * prvObjectImporting covers how to import a private RSA key that was
+ * prvObjectImporting covers how to import a RSA certificate that was
  * not generated by the Cryptoki library.
  *
- * Note: This method can also be used with certificates and public keys.
- * This Cryptoki library does not support importing RSA public keys.
  */
 static void prvObjectImporting( void );
 
@@ -97,15 +108,6 @@ static void prvObjectImporting( void );
  */
 static void prvObjectGeneration( void );
 
-/* Length parameters for importing RSA-2048 private keys. */
-#define MODULUS_LENGTH        pkcs11RSA_2048_MODULUS_BITS / 8
-#define E_LENGTH              3
-#define D_LENGTH              pkcs11RSA_2048_MODULUS_BITS / 8
-#define PRIME_1_LENGTH        128
-#define PRIME_2_LENGTH        128
-#define EXPONENT_1_LENGTH     128
-#define EXPONENT_2_LENGTH     128
-#define COEFFICIENT_LENGTH    128
 
 /**
  * This function details how to use the PKCS #11 "Object" functions to
@@ -133,26 +135,77 @@ void vPKCS11ObjectDemo( void )
 static void prvObjectImporting( void )
 {
     configPRINTF( ( "---------Importing Objects---------\r\n" ) );
-    configPRINTF( ( "Importing RSA Private Key...\r\n" ) );
+    configPRINTF( ( "Importing RSA Certificate...\r\n" ) );
 
     /* Helper variables and variables that have been covered. */
     CK_RV xResult = CKR_OK;
     CK_SESSION_HANDLE hSession = CK_INVALID_HANDLE;
     CK_SLOT_ID * pxSlotId = 0;
     CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
-    CK_BBOOL xTrue = CK_TRUE;
-    CK_KEY_TYPE xPrivateKeyType = CKK_RSA;
-    CK_OBJECT_CLASS xPrivateKeyClass = CKO_PRIVATE_KEY;
-    CK_BYTE pxLabel[] = pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS;
-    CK_OBJECT_HANDLE xPrivateKeyHandle = CK_INVALID_HANDLE;
+    uint8_t * pucDerObject = NULL;
+    int32_t lConversionReturn = 0;
+    size_t xDerLen = 0;
+    CK_BBOOL xTokenStorage = CK_TRUE;
+    CK_OBJECT_HANDLE xCertHandle = CK_INVALID_HANDLE;
+    CK_BYTE xSubject[] = "TestSubject";
 
-    /* mbed TLS variables. */
-    int lMbedResult = 0;
-    mbedtls_pk_context xMbedPkContext = { 0 };
-    mbedtls_rsa_context * pxRsaContext = NULL;
 
-    /* Initialize mbed TLS context. */
-    mbedtls_pk_init( &xMbedPkContext );
+    /* The PKCS11_CertificateTemplate_t is a custom struct defined in "iot_pkcs11.h"
+     * in order to make it easier to import a certificate. This struct will be
+     * populated with the parameters necessary to import the certificate into the
+     * Cryptoki library.
+     */
+    PKCS11_CertificateTemplate_t xCertificateTemplate;
+
+    /* The object class is specified as a certificate to help the Cryptoki library
+     * parse the arguments. 
+     */
+    CK_OBJECT_CLASS xCertificateClass = CKO_CERTIFICATE;
+    
+    /* The certificate type is an x509 certificate, which is the only type 
+     * supported by this stack. To read more about x509 certificates one can
+     * read the following:
+     *
+     * https://en.wikipedia.org/wiki/X.509
+     * https://www.ssl.com/faqs/what-is-an-x-509-certificate/
+     *
+     */
+    CK_CERTIFICATE_TYPE xCertificateType = CKC_X_509;
+
+    /* The label will help the application identify which object it would like 
+     * to access.
+     */
+    CK_BYTE pucLabel[] = pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS;
+
+    /* Specify certificate class. */
+    xCertificateTemplate.xObjectClass.type = CKA_CLASS;
+    xCertificateTemplate.xObjectClass.pValue = &xCertificateClass;
+    xCertificateTemplate.xObjectClass.ulValueLen = sizeof( xCertificateClass );
+
+    /* Specify certificate subject. */
+    xCertificateTemplate.xSubject.type = CKA_SUBJECT;
+    xCertificateTemplate.xSubject.pValue = xSubject;
+    xCertificateTemplate.xSubject.ulValueLen = strlen( ( const char * ) xSubject );
+
+    /* Point to contents of certificate. */
+    xCertificateTemplate.xValue.type = CKA_VALUE;
+    xCertificateTemplate.xValue.pValue = ( CK_VOID_PTR ) pkcs11demo_RSA_CERTIFICATE;
+    xCertificateTemplate.xValue.ulValueLen = ( CK_ULONG ) sizeof( pkcs11demo_RSA_CERTIFICATE );
+    
+    /* Specify certificate label. */
+    xCertificateTemplate.xLabel.type = CKA_LABEL;
+    xCertificateTemplate.xLabel.pValue = ( CK_VOID_PTR ) pucLabel;
+    xCertificateTemplate.xLabel.ulValueLen = strlen( ( const char * ) pucLabel );
+    
+    /* Specify certificate type as x509. */
+    xCertificateTemplate.xCertificateType.type = CKA_CERTIFICATE_TYPE;
+    xCertificateTemplate.xCertificateType.pValue = &xCertificateType;
+    xCertificateTemplate.xCertificateType.ulValueLen = sizeof( CK_CERTIFICATE_TYPE );
+
+    /* Specify that the certificate should be on a token. */
+    xCertificateTemplate.xTokenObject.type = CKA_TOKEN;
+    xCertificateTemplate.xTokenObject.pValue = &xTokenStorage;
+    xCertificateTemplate.xTokenObject.ulValueLen = sizeof( xTokenStorage );
 
     vStart( &hSession, &pxSlotId );
 
@@ -161,102 +214,39 @@ static void prvObjectImporting( void )
     configASSERT( xResult == CKR_OK );
     configASSERT( pxFunctionList->C_CreateObject != NULL );
 
-    /* Byte arrays of the various parameters for an RSA private key. This code
-     * will be importing a 2048 bit RSA key, and the sizes are hard coded for
-     * that value.
-     *
-     * For further explanation of these variables see:
-     * https://en.wikipedia.org/wiki/RSA_(cryptosystem)
-     *
-     */
-    CK_BYTE modulus[ MODULUS_LENGTH + 1 ] = { 0 };
-    CK_BYTE e[ E_LENGTH + 1 ] = { 0 };
-    CK_BYTE d[ D_LENGTH + 1 ] = { 0 };
-    CK_BYTE prime1[ PRIME_1_LENGTH + 1 ] = { 0 };
-    CK_BYTE prime2[ PRIME_2_LENGTH + 1 ] = { 0 };
-    CK_BYTE exponent1[ EXPONENT_1_LENGTH + 1 ] = { 0 };
-    CK_BYTE exponent2[ EXPONENT_2_LENGTH + 1 ] = { 0 };
-    CK_BYTE coefficient[ COEFFICIENT_LENGTH + 1 ] = { 0 };
+    /* Convert the certificate to DER format if it was in PEM. The DER key
+     * should be about 3/4 the size of the PEM key, so mallocing the PEM key
+     * size is sufficient. */
+    pucDerObject = pvPortMalloc( xCertificateTemplate.xValue.ulValueLen );
+    configASSERT( pucDerObject != NULL );
 
-    /* Parse the RSA PEM string using mbed tls. See the mbed TLS documentation,
-     * or pk.h for further explanation of this API. */
-    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext,
-                                        ( const unsigned char * ) pkcs11demo_RSA_PRIVATE_KEY,
-                                        strlen( pkcs11demo_RSA_PRIVATE_KEY ) + 1,
-                                        NULL,
-                                        0 );
-    configASSERT( lMbedResult == 0 );
+    xDerLen = xCertificateTemplate.xValue.ulValueLen;
+    lConversionReturn = convert_pem_to_der( xCertificateTemplate.xValue.pValue,
+                                            xCertificateTemplate.xValue.ulValueLen,
+                                            pucDerObject,
+                                            &xDerLen );
 
+    configASSERT( 0 == lConversionReturn );
 
+    /* Set the template pointers to refer to the DER converted objects. */
+    xCertificateTemplate.xValue.pValue = pucDerObject;
+    xCertificateTemplate.xValue.ulValueLen = xDerLen;
 
-    /* Export the RSA private key parameters into raw bytes. */
-    pxRsaContext = xMbedPkContext.pk_ctx;
-    lMbedResult = mbedtls_rsa_export_raw( pxRsaContext,
-                                          modulus, MODULUS_LENGTH + 1,
-                                          prime1, PRIME_1_LENGTH + 1,
-                                          prime2, PRIME_2_LENGTH + 1,
-                                          d, D_LENGTH + 1,
-                                          e, E_LENGTH + 1 );
-    configASSERT( lMbedResult == 0 );
+    /* Create an object using the encoded client certificate. */
+    configPRINTF( ( "Creating x509 certificate with label: %s \r\n",
+                pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS ) );
 
-    /* Export Exponent 1, Exponent 2, Coefficient. */
-    lMbedResult = mbedtls_mpi_write_binary( ( mbedtls_mpi const * ) &pxRsaContext->DP,
-                                            exponent1,
-                                            EXPONENT_1_LENGTH + 1 );
-    configASSERT( lMbedResult == 0 );
-
-    lMbedResult = mbedtls_mpi_write_binary( ( mbedtls_mpi const * ) &pxRsaContext->DQ,
-                                            exponent2,
-                                            EXPONENT_2_LENGTH + 1 );
-    configASSERT( lMbedResult == 0 );
-
-    lMbedResult = mbedtls_mpi_write_binary( ( mbedtls_mpi const * ) &pxRsaContext->QP,
-                                            coefficient,
-                                            COEFFICIENT_LENGTH + 1 );
-    configASSERT( lMbedResult == 0 );
-
-    /*
-     * Now we have created a template of CK_ATTRIBUTEs that describe the structure
-     * of the RSA private key we want to create. We will pass this to the Cryptoki
-     * library, as well as it's length, to create the described private key on
-     * the token.
-     *
-     * The pointers to the various RSA parameters are incremented by one, in
-     * order to remove the 0 padding if it was added, since we use the original
-     * length of the RSA parameter.
-     *
-     */
-    CK_ATTRIBUTE xPrivateKeyTemplate[] =
-    {
-        { CKA_CLASS,            &xPrivateKeyClass, sizeof( CK_OBJECT_CLASS ) },
-        { CKA_KEY_TYPE,         &xPrivateKeyType,  sizeof( CK_KEY_TYPE )     },
-        { CKA_LABEL,            pxLabel,           sizeof( pxLabel )         },
-        { CKA_TOKEN,            &xTrue,            sizeof( CK_BBOOL )        },
-        { CKA_SIGN,             &xTrue,            sizeof( CK_BBOOL )        },
-        { CKA_MODULUS,          modulus + 1,       MODULUS_LENGTH            },
-        { CKA_PRIVATE_EXPONENT, d + 1,             D_LENGTH                  },
-        { CKA_PUBLIC_EXPONENT,  e + 1,             E_LENGTH                  },
-        { CKA_PRIME_1,          prime1 + 1,        PRIME_1_LENGTH            },
-        { CKA_PRIME_2,          prime2 + 1,        PRIME_2_LENGTH            },
-        { CKA_EXPONENT_1,       exponent1 + 1,     EXPONENT_1_LENGTH         },
-        { CKA_EXPONENT_2,       exponent2 + 1,     EXPONENT_2_LENGTH         },
-        { CKA_COEFFICIENT,      coefficient + 1,   COEFFICIENT_LENGTH        }
-    };
-
-    configPRINTF( ( "Creating private key with label: %s \r\n",
-                    pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS ) );
-
-    /* Once the Cryptoki library has finished importing the new RSA private key
+    /* Once the Cryptoki library has finished importing the new x509 certificate
      * a CK_OBJECT_HANDLE is associated with it. The application can now use this
      * to refer to the object in following operations.
      *
-     * xPrivateKeyHandle in the below example will have it's value modified to
+     * xCertHandle in the below example will have it's value modified to
      * be the CK_OBJECT_HANDLE.
      *
-     * Compare the hard coded RSA private key, in PEM format, with the DER formatted
-     * private key that is created by the Cryptoki library, with the following
+     * Compare the hard coded x509, in PEM format, with the DER formatted
+     * x509 certificate that is created by the Cryptoki library, with the following
      * OpenSSL command:
-     * "$ openssl rsa -in FreeRTOS_P11_Key.dat -inform der -text"
+     * "$ openssl x509 -in FreeRTOS_P11_Certificate.dat -inform der -text"
      *
      * See this explanation for the difference between the PEM format and the
      * DER format:
@@ -264,20 +254,19 @@ static void prvObjectImporting( void )
      *
      */
     xResult = pxFunctionList->C_CreateObject( hSession,
-                                              ( CK_ATTRIBUTE_PTR ) &xPrivateKeyTemplate,
-                                              sizeof( xPrivateKeyTemplate ) / sizeof( CK_ATTRIBUTE ),
-                                              &xPrivateKeyHandle );
-    configASSERT( xResult == CKR_OK );
-    configASSERT( xPrivateKeyHandle != CK_INVALID_HANDLE );
+                                              ( CK_ATTRIBUTE_PTR ) &xCertificateTemplate,
+                                              sizeof( xCertificateTemplate ) / sizeof( CK_ATTRIBUTE ),
+                                              &xCertHandle );
 
-    configPRINTF( ( "FreeRTOS_P11_Key.dat has been created in the Visual Studio" \
+    configASSERT( xResult == CKR_OK );
+    configASSERT( xCertHandle != CK_INVALID_HANDLE );
+
+    configPRINTF( ( "FreeRTOS_P11_Certificate.dat has been created in the Visual Studio" \
                     " Solution directory\r\n" ) );
 
-    /* Clean up mbed TLS context that was used to parse the RSA key. */
-    mbedtls_pk_free( &xMbedPkContext );
-
+    vPortFree( pucDerObject );
     vEnd( hSession, pxSlotId );
-    configPRINTF( ( "Finished Importing RSA Private Key.\r\n" ) );
+    configPRINTF( ( "Finished Importing RSA Certificate.\r\n" ) );
     configPRINTF( ( "---------Finished Importing Objects---------\r\n" ) );
 }
 
@@ -341,17 +330,11 @@ static void prvObjectGeneration( void )
      */
     CK_ATTRIBUTE xPublicKeyTemplate[] =
     {
-        { CKA_KEY_TYPE,  NULL /* &xKeyType */, sizeof( xKeyType )              },
-        { CKA_VERIFY,    NULL /* &xTrue */,    sizeof( xTrue )                 },
-        { CKA_EC_PARAMS, NULL /* xEcParams */, sizeof( xEcParams )             },
+        { CKA_KEY_TYPE,  &xKeyType, sizeof( xKeyType )              },
+        { CKA_VERIFY,    &xTrue,    sizeof( xTrue )                 },
+        { CKA_EC_PARAMS, xEcParams, sizeof( xEcParams )             },
         { CKA_LABEL,     pucPublicKeyLabel,    sizeof( pucPublicKeyLabel ) - 1 }
     };
-
-    /* Aggregate initializers must not use the address of an automatic variable. */
-    /* See MSVC Compiler Warning C4221 */
-    xPublicKeyTemplate[ 0 ].pValue = &xKeyType;
-    xPublicKeyTemplate[ 1 ].pValue = &xTrue;
-    xPublicKeyTemplate[ 2 ].pValue = &xEcParams;
 
     /* In the below template we are creating a private key:
      *      The key type is EC.
