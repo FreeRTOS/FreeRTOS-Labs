@@ -181,10 +181,23 @@ void vPKCS11SignVerifyDemo( void )
                                               sizeof( pxKnownMessage ) - 1 );
     configASSERT( CKR_OK == xResult );
 
-    /* Retrieve the digest buffer. Since the mechanism is a SHA-256 algorithm,
-     * the size will always be 32 bytes. If the size cannot be known ahead of time,
-     * a NULL value to the second parameter pDigest, will set the third parameter,
-     * pulDigestLen to the number of required bytes. */
+    /* Retrieve the digest buffer length. When passing in a NULL pointer as the 
+     * second argument, instead of a point to a buffer, this will signal the
+     * Cryptoki library to fill the third parameter with the required amount of 
+     * bytes to store the resulting digest.
+     */
+    xResult = pxFunctionList->C_DigestFinal( hSession,
+                                             NULL,
+                                             &ulDigestLength );
+    configASSERT( CKR_OK == xResult );
+    /* Since the length of a SHA-256 digest is known, we made an assumption and
+     * allocated the buffer originally with the known length. Assert to make sure
+     * we queried the length we expected. */
+    configASSERT( pkcs11SHA256_DIGEST_LENGTH == ulDigestLength );
+
+    /* Now that ulDigestLength contains the required byte length, retrieve the 
+     * digest buffer.
+     */
     xResult = pxFunctionList->C_DigestFinal( hSession,
                                              xDigestResult,
                                              &ulDigestLength );
@@ -230,10 +243,11 @@ void vPKCS11SignVerifyDemo( void )
     configASSERT( xResult == CKR_OK );
 
     /* Given the signature and it's length, the Cryptoki will use the public key
-     * to see if the sender can be trusted. If C_Verify returns CKR_OK, it means
-     * that the sender of the message has the same private key as the private key
-     * that was used to generate the public key, and we can trust that the 
-     * message we received was from that sender.
+     * to verify that the signature was created by the corresponding private key. 
+     * If C_Verify returns CKR_OK, it means that the sender of the message has 
+     * the same private key as the private key that was used to generate the 
+     * public key, and we can trust that the message we received was from that 
+     * sender.
      *
      * Note that we are not using the actual message, but the digest that we 
      * created earlier of the message, for the verification.
