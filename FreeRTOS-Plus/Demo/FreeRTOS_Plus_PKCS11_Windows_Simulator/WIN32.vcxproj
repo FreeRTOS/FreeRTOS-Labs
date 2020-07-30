@@ -232,9 +232,9 @@
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\3rdparty\mbedtls_utils\mbedtls_utils.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_crypto.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pkcs11.c" />
-    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pkcs11_mbedtls.c" />
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pki_utils.c" />
-    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\iot_pkcs11_pal.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\mbedtls\iot_pkcs11_mbedtls.c" />
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\windows\iot_pkcs11_pal.c" />
     <ClCompile Include="examples\demo_helpers.c" />
     <ClCompile Include="examples\management_and_rng.c" />
     <ClCompile Include="examples\objects.c" />

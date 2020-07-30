@@ -46,13 +46,7 @@
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pkcs11.c">
       <Filter>FreeRTOS+PKCS11</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pkcs11_mbedtls.c">
-      <Filter>FreeRTOS+PKCS11</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\iot_pki_utils.c">
-      <Filter>FreeRTOS+PKCS11</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\iot_pkcs11_pal.c">
       <Filter>FreeRTOS+PKCS11</Filter>
     </ClCompile>
     <ClCompile Include="main.c" />
@@ -340,6 +334,12 @@
     </ClCompile>
     <ClCompile Include="examples\sign_and_verify.c">
       <Filter>examples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\mbedtls\iot_pkcs11_mbedtls.c">
+      <Filter>FreeRTOS+PKCS11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FreeRTOS-Plus-PKCS11\portable\windows\iot_pkcs11_pal.c">
+      <Filter>FreeRTOS+PKCS11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
