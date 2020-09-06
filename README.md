@@ -1,5 +1,5 @@
 ## FreeRTOS-Labs
-This repository contains libraries and demos that are fully functional, but undergoing optimizations or refactorization to improve memory usage, modularity, documentation, demo usability, or test coverage.  At this time the projects ARE A WORK IN PROGRESS and will be released in the main FreeRTOS directories of the download following full review and completion of the documentation. 
+This repository contains libraries and demos that are fully functional, but may be experimental or undergoing optimizations and refactorization to improve memory usage, modularity, documentation, demo usability, or test coverage.  
 
 In this repository, we provide two demo projects: 
 
