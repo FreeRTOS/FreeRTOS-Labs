@@ -1,13 +1,8 @@
 ## FreeRTOS-Labs
 This repository contains libraries and demos that are fully functional, but undergoing optimizations or refactorization to improve memory usage, modularity, documentation, demo usability, or test coverage.  At this time the projects ARE A WORK IN PROGRESS and will be released in the main FreeRTOS directories of the download following full review and completion of the documentation. 
 
-In this repository, we provide three demo projects: 
-- A light weight MQTT demo:
+In this repository, we provide two demo projects: 
 
-  ```
-  FreeRTOS-Labs\Demo\FreeRTOS_IoT_Libraries\mqtt\mqtt_light_weight\mqtt_light_weight_demo.sln
-  ```
-  
 - FAT file system demo: 
 
   ```
