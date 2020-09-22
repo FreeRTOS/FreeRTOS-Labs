@@ -25,6 +25,8 @@
 #ifndef _DEMO_HELPER_FUNCTIONS_
 #define _DEMO_HELPER_FUNCTIONS_
 
+#include "iot_pkcs11.h"
+#include "threading_alt.h"
 #include "mbedtls/pk.h"
 
 /* This function contains standard setup code for PKCS #11. See the
@@ -59,4 +61,43 @@ CK_RV vExportPublicKey( CK_SESSION_HANDLE xSession,
                         CK_BYTE ** ppucDerPublicKey,
                         CK_ULONG * pulDerPublicKeyLength );
 /*-----------------------------------------------------------*/
+
+/**
+ * @brief Implements libc calloc semantics using the FreeRTOS heap
+ */
+void * pvCalloc( size_t xNumElements,
+                 size_t xSize );
+/*-----------------------------------------------------------*/
+
+/**
+ * @brief Implementation of mbedtls_mutex_init for thread-safety.
+ *
+ */
+void aws_mbedtls_mutex_init( mbedtls_threading_mutex_t * mutex );
+/*-----------------------------------------------------------*/
+
+/**
+ * @brief Implementation of mbedtls_mutex_free for thread-safety.
+ *
+ */
+void aws_mbedtls_mutex_free( mbedtls_threading_mutex_t * mutex );
+/*-----------------------------------------------------------*/
+
+/**
+ * @brief Implementation of mbedtls_mutex_lock for thread-safety.
+ *
+ * @return 0 if successful, MBEDTLS_ERR_THREADING_MUTEX_ERROR if timeout,
+ * MBEDTLS_ERR_THREADING_BAD_INPUT_DATA if the mutex is not valid.
+ */
+int aws_mbedtls_mutex_lock( mbedtls_threading_mutex_t * mutex );
+/*-----------------------------------------------------------*/
+
+/**
+ * @brief Implementation of mbedtls_mutex_unlock for thread-safety.
+ *
+ * @return 0 if successful, MBEDTLS_ERR_THREADING_MUTEX_ERROR if timeout,
+ * MBEDTLS_ERR_THREADING_BAD_INPUT_DATA if the mutex is not valid.
+ */
+int aws_mbedtls_mutex_unlock( mbedtls_threading_mutex_t * mutex );
+
 #endif /* _DEMO_HELPER_FUNCTIONS_ */

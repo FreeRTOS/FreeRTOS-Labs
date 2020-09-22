@@ -23,6 +23,9 @@
  * http://www.FreeRTOS.org
  */
 
+#ifndef _PKCS11_DEMO_CONFIG_
+#define _PKCS11_DEMO_CONFIG_
+
 /*
  * @brief this macro defines the stack size for the PKCS #11 demo task.
  */
@@ -53,3 +56,4 @@
  */
 #define configPKCS11_SIGN_AND_VERIFY_DEMO           0
 
+#endif

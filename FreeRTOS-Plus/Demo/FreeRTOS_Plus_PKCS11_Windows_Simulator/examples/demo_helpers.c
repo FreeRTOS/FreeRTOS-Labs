@@ -260,3 +260,82 @@ CK_RV vExportPublicKey( CK_SESSION_HANDLE xSession,
 }
 /*-----------------------------------------------------------*/
 
+void * pvCalloc( size_t xNumElements,
+                 size_t xSize )
+{
+    void * pvNew = pvPortMalloc( xNumElements * xSize );
+
+    if( NULL != pvNew )
+    {
+        memset( pvNew, 0, xNumElements * xSize );
+    }
+
+    return pvNew;
+}
+/*-----------------------------------------------------------*/
+
+void aws_mbedtls_mutex_init( mbedtls_threading_mutex_t * mutex )
+{
+    mutex->mutex = xSemaphoreCreateMutex();
+
+    if( mutex->mutex != NULL )
+    {
+        mutex->is_valid = 1;
+    }
+    else
+    {
+        mutex->is_valid = 0;
+    }
+}
+/*-----------------------------------------------------------*/
+
+void aws_mbedtls_mutex_free( mbedtls_threading_mutex_t * mutex )
+{
+    if( mutex->is_valid == 1 )
+    {
+        vSemaphoreDelete( mutex->mutex );
+        mutex->is_valid = 0;
+    }
+}
+/*-----------------------------------------------------------*/
+
+int aws_mbedtls_mutex_lock( mbedtls_threading_mutex_t * mutex )
+{
+    int ret = MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
+
+    if( mutex->is_valid == 1 )
+    {
+        if( xSemaphoreTake( mutex->mutex, portMAX_DELAY ) )
+        {
+            ret = 0;
+        }
+        else
+        {
+            ret = MBEDTLS_ERR_THREADING_MUTEX_ERROR;
+        }
+    }
+
+    return ret;
+}
+/*-----------------------------------------------------------*/
+
+int aws_mbedtls_mutex_unlock( mbedtls_threading_mutex_t * mutex )
+{
+    int ret = MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
+
+    if( mutex->is_valid == 1 )
+    {
+        if( xSemaphoreGive( mutex->mutex ) )
+        {
+            ret = 0;
+        }
+        else
+        {
+            ret = MBEDTLS_ERR_THREADING_MUTEX_ERROR;
+        }
+    }
+
+    return ret;
+}
+/*-----------------------------------------------------------*/
+

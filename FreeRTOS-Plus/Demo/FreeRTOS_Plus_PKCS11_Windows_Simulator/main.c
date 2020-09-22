@@ -46,6 +46,7 @@
 #include "mbedtls/entropy.h"
 
 /* PKCS #11 Demo includes. */
+#include "demo_helpers.h"
 #include "pkcs11_demo_config.h"
 #include "pkcs11_demos.h"
 
@@ -78,6 +79,11 @@ int main( void )
     configPRINTF( ( "Creating PKCS #11 Demo Task.\r\n" ) );
     BaseType_t xReturned;
     TaskHandle_t xHandle = NULL;
+
+    mbedtls_threading_set_alt( aws_mbedtls_mutex_init,
+                               aws_mbedtls_mutex_free,
+                               aws_mbedtls_mutex_lock,
+                               aws_mbedtls_mutex_unlock );
 
     /* Create the PKCS #11 demo task. */
     xReturned = xTaskCreate(
