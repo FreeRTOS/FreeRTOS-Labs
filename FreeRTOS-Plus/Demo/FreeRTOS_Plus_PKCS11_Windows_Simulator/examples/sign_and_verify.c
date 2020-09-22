@@ -229,7 +229,6 @@ void vPKCS11SignVerifyDemo( void )
 
 
     /********************************* Verify **********************************/
-
     /* Verify the signature created by C_Sign. First we will verify that the 
      * same Cryptoki library was able to trust itself.
      *
