@@ -753,7 +753,7 @@ const size_t xSectorSize = 512U;
 const size_t xNumSectors = 3U;
 const size_t xOverwriteCheckBytes = 1U;
 const size_t xBufferSize = ( xSectorSize * xNumSectors ) + xSizeIncrement;
-size_t x, xSkippedBytes, x32BitValues;
+uint32_t x, xSkippedBytes, x32BitValues;
 char *pcBuffer;
 uint32_t *pulVerifyBuffer;
 uint32_t *pulVerifyValues;
