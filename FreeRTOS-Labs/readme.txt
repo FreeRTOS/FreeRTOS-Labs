@@ -49,5 +49,5 @@ See http://www.freertos.org/a00017.html for full details of the FreeRTOS
 directory structure
 
 See also -
-http://www.freertos.org/FreeRTOS-quick-start-guide.html
-http://www.freertos.org/FAQHelp.html
+https://freertos.org/Documentation/01-FreeRTOS-quick-start/01-Beginners-guide/02-Quick-start-guide
+https://www.freertos.org/Why-FreeRTOS/FAQs
